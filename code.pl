@@ -7,14 +7,11 @@
 :-dynamic(posisiPokemon/3).
 :-dynamic(battleNow/2).
 
-
 /* static variable*/
-
 
 /* Pemain */
 inventory(0).
 posisiPlayer(1,1).
-
 
 /* Map */
 pagar(1,2).
@@ -22,9 +19,6 @@ pagar(4,5).
 pagar(6,7).
 gym(3,4).
 gym(8,10).
-
-
-
 
 /* Pokemon */
 /* List pokemon */
@@ -44,8 +38,8 @@ pokemon(12,litwick).
 pokemon(13,heatmor).
 
 /* Posisi pokemon */
+/* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
 posisiPokemon(1,1,2).
-
 
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
@@ -76,7 +70,6 @@ starter(oshawott).
 legendary(victini).
 legendary(virizion).
 
-
 /* Health pokemon */
 /* health(X,Y) : X memiliki health sebesar Y */
 health(snivy,100).
@@ -95,20 +88,19 @@ health(heatmor,100).
 health(victiny,10000).
 health(virizion,101001).
 
-
 /* Damage */
 /* damage(X,Y) : X memiliki damage sebesar Y */
 damage(victini,135182).
 damage(virizion,182135).
 
-
 /* modifier */
+/* modifier(X,Y) : X is super effective against Y */
 modifier(fire,grass).
 modifier(water,fire).
 modifier(grass,water).
 
-
 /* special attack */
+/* weapon(X,Y) : X memiliki special attack Y */
 weapon(victini,pistol).
 weapon(tepig,ak47).
 weapon(oshawott,kemoceng).
@@ -116,10 +108,8 @@ weapon(pansage,sapuLidi).
 weapon(pansear,kerikil).
 weapon(panpour,shotgun).
 
-
 /* Battle */
 turnPlayer(1).
-
 
 /* Location */
 /* location(A,B,C): C berada di koordinat (A,B) */
@@ -181,9 +171,6 @@ loc(6,5,'Atlantis').
 loc(6,6,'Lapangan Cinta').
 loc(6,7,'Lapangan Cinta').
 loc(6,8,'Lapangan Cinta').
-
-
-
 
 /* Deadzone */
 deadzone(0,0).
