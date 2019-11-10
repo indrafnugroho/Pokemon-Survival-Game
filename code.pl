@@ -1,11 +1,11 @@
 ﻿/* dynamic variable */
-:-dynamic(inventory/1).
-:-dynamic(posisiPlayer/2).
-:-dynamic(turnPlayer/1).
-:-dynamic(health/2).
-:-dynamic(damage/2).
-:-dynamic(posisiPokemon/3).
-:-dynamic(battleNow/2).
+:- dynamic(inventory/1).
+:- dynamic(posisiPlayer/2).
+:- dynamic(turnPlayer/1).
+:- dynamic(health/2).
+:- dynamic(damage/2).
+:- dynamic(posisiPokemon/3).
+:- dynamic(battleNow/2).
 
 
 /* static variable*/
