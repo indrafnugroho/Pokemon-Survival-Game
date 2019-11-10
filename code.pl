@@ -38,7 +38,10 @@ pokemon(6,panpour).
 pokemon(7,basculin).
 pokemon(8,darumaka).
 pokemon(9,maractus).
-
+pokemon(10,tympole).
+pokemon(11,cottonee).
+pokemon(12,litwick).
+pokemon(13,heatmor).
 
 /* Posisi pokemon */
 posisiPokemon(1,1,2).
@@ -47,8 +50,6 @@ posisiPokemon(1,1,2).
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
 type(grass,snivy).
-type(grass,virizion).
-type(fire,victini).
 type(water,oshawott).
 type(fire,tepig).
 type(grass,pansage).
@@ -57,7 +58,19 @@ type(water,panpour).
 type(fire,darumaka).
 type(water,basculin).
 type(grass,maractus).
+type(water,tympole).
+type(grass,cottonee).
+type(fire,litwick).
+type(fire,heatmor).
+type(grass,virizion).
+type(fire,victini).
 
+/* Starter Pokemon */
+/* pokemon ini tidak dapat 'berkeliaran' di rumput.
+   hanya dapat dipilih saat awal permainan */
+starter(snivy).
+starter(tepig).
+starter(oshawott).
 
 /* Legendary */
 legendary(victini).
@@ -65,7 +78,20 @@ legendary(virizion).
 
 
 /* Health pokemon */
+/* health(X,Y) : X memiliki health sebesar Y */
 health(snivy,100).
+health(tepig,100).
+health(oshawott,100).
+health(pansage,100).
+health(pansear,100).
+health(panpour,100).
+health(darumaka,100).
+health(basculin,100).
+health(maractus,100).
+health(tympole,100).
+health(cottonee,100).
+health(litwick,100).
+health(heatmor,100).
 health(victiny,10000).
 health(virizion,101001).
 
