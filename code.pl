@@ -6,12 +6,57 @@
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
 :- dynamic(battleNow/2).
+:- dynamic(max_inventory/1).
 
 /* static variable*/
 
 /* Pemain */
-inventory(0).
+jml_inventory(0).
+max_inventory(6).
 posisiPlayer(1,1).
+
+/* Inventory */
+add_inv([],X,[X]).
+add_inv([H|T],H,[H|T]).
+add_inv([Z|T1],X,[Z|T2]):- add_inv(T1,X,T2),!.
+
+del_inv([X],X,[]).
+del_inv([H|T],H,[[]|T]).
+del_inv([Z|T1],X,[Z|T2]) :- del_inv(T1,X,T2),!.
+
+catch(X) :-
+    pokemon(Y,X),
+    inventory(X),
+    jml_inventory(N).
+    N1 is N+1,
+    retract(jml_inventory(N)),
+    asserta(jml_inventory(N1)),
+    max_inventory(N1),!,
+    add_inv(A,X,B).
+
+
+throw(X) :- pokemon(Y,X),
+            inventory(X),
+            jml_inventory(N),
+            N1 is N-1,
+            retract(jml_inventory(N)),
+            asserta(jml_inventory(N1)).
+            del_inv(A,X,B).
+
+/* gym center */
+heal(X) :- pokemon(Y,X),
+            inventory(X),
+            posisiPlayer(A,B),
+            gym(A,B),
+            curr_health(X,H),
+            health(X,HH),
+            retract(curr_health(X,H)),
+            asserta(curr_health(X,HH)).
+
+/* fail state */
+fail(X) :- jml_inventory(0),!.
+
+
 
 /* Map */
 pagar(1,2).
@@ -119,18 +164,18 @@ loc(1,3,'Taman Bermain').
 loc(1,4,'Taman Bermain').
 loc(1,5,'Makam Pokemon').
 loc(1,6,'Makam Pokemon').
-loc(1,7,'Sadikin').
-loc(1,8,'Sadikin').
+loc(1,7,'Sebuah Tempat').
+loc(1,8,'Sebuah Tempat').
 loc(1,9,'ITB').
 loc(1,10,'ITB').
-loc(2,1,'LabDas8').
+loc(2,1,'').
 loc(2,2,'Taman Bermain').
 loc(2,3,'Taman Bermain').
 loc(2,4,'Taman Bermain').
-loc(2,5,'Sekre Asique').
-loc(2,6,'Sekre Asique').
-loc(2,7,'Sadikin').
-loc(2,8,'Sadikin').
+loc(2,5,'Pantai').
+loc(2,6,'Pantai').
+loc(2,7,'Sebuah Tempat').
+loc(2,8,'Sebuah Tempat').
 loc(2,9,'ITB').
 loc(2,10,'ITB').
 loc(3,1,'Gym Center').
@@ -153,11 +198,11 @@ loc(4,7,'Hutan').
 loc(4,8,'Hutan').
 loc(4,9,'Rumah nenek').
 loc(4,10,'Rumah nenek').
-loc(5,1,'Bikini bottom').
-loc(5,2,'Bikini bottom').
-loc(5,3,'Bikini bottom').
-loc(5,4,'Atlantis').
-loc(5,5,'Atlantis').
+loc(5,1,'Jalan Raya').
+loc(5,2,'Jalan Raya').
+loc(5,3,'Jalan Raya').
+loc(5,4,'Jalan Raya').
+loc(5,5,'Jalan Raya').
 loc(5,6,'Hutan').
 loc(5,7,'Hutan').
 loc(5,8,'Hutan').
@@ -166,8 +211,8 @@ loc(5,10,'Gunung Pokemon').
 loc(6,1,'Bikini bottom').
 loc(6,2,'Bikini Bottom').
 loc(6,3,'Bikini Bottom').
-loc(6,4,'Atlantis').
-loc(6,5,'Atlantis').
+loc(6,4,'Stasiun Kereta').
+loc(6,5,'Stasiun Kereta').
 loc(6,6,'Lapangan Cinta').
 loc(6,7,'Lapangan Cinta').
 loc(6,8,'Lapangan Cinta').
