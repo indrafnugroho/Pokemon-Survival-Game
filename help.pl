@@ -19,6 +19,8 @@ help_show:-
         write('   untuk bergerak ke kanan'),nl,
         write('8. map'),nl,
         write('9. heal(pokemon)'),nl,
-        write('10. status'),nl,
-        write('11. save'),nl,
-        write('12. load'),nl,!.
+        write('10. catch(pokemon)'),nl,
+        write('11. throw(pokemon)'),nl,
+        write('12. status'),nl,
+        write('13. save'),nl,
+        write('14. load'),nl,!.
