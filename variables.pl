@@ -135,10 +135,10 @@ loc(2,7,'Sadikin').
 loc(2,8,'Sadikin').
 loc(2,9,'ITB').
 loc(2,10,'ITB').
-loc(3,1,'Gym Center').
+loc(3,1,'ITB').
 loc(3,2,'Tempat yang berbayang-bayang').
 loc(3,3,'Tempat yang berbayang-bayang').
-loc(3,4,'Rumah Hantu').
+loc(3,4,'Gym Center').
 loc(3,5,'Rumah Hantu').
 loc(3,6,'Hutan').
 loc(3,7,'Hutan').
@@ -173,6 +173,11 @@ loc(6,5,'Atlantis').
 loc(6,6,'Lapangan Cinta').
 loc(6,7,'Lapangan Cinta').
 loc(6,8,'Lapangan Cinta').
+loc(6,9,'Labtek V').
+loc(6,10,'Labtek V').
+loc(7,1,'Labtek V').
+loc(7,2,'Kandang Domba').
+loc(7,3,'Kandang Domba').
 
 /* Deadzone */
 deadzone(0,0).
