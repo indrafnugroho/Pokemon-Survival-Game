@@ -1,6 +1,4 @@
 /* STATUS */
-:-include('variables.pl').
-
 status :-
     write('Your Pokemon:'), nl,
     findall(X,inventory(X),ListInventory),
