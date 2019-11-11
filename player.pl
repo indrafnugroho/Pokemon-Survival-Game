@@ -31,6 +31,11 @@ throw(X) :- pokemon(Y,X),
             asserta(jml_inventory(N1)).
             del_inv(A,X,B).
 
+/* choose(X) artinya X dipilih dari inventory untuk battle */
+choose(X) :- 
+    pokemon(Y,X),
+    inventory(X).
+
 /* gym center */
 heal(X) :- pokemon(Y,X),
             inventory(X),
