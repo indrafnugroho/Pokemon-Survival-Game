@@ -9,8 +9,8 @@ start :-
 		
 
 
-do(w) :- atas, spawn, !.
-do(s) :- bawah,  spawn, !.
-do(a) :- kiri, spawn, !.
-do(d) :- kanan, spawn, !.
-do(map) :-map.
+do(w) :- atas, moveAllPokemon, spawn, !.
+do(s) :- bawah,  moveAllPokemon, spawn, !.
+do(a) :- kiri, moveAllPokemon, spawn, !.
+do(d) :- kanan, moveAllPokemon, spawn, !.
+do(map) :- map.
