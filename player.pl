@@ -13,26 +13,26 @@ del_inv([Z|T1],X,[Z|T2]) :- del_inv(T1,X,T2),!.
 
 catch(X) :-
     pokemon(Y,X),
-    inventory(X),
+    inventory(I),
     jml_inventory(N).
     N1 is N+1,
     retract(jml_inventory(N)),
     asserta(jml_inventory(N1)),
     max_inventory(N1),
-    add_inv(A,X,B),!.
+    add_inv(I,X,I2),!.
 
 
 throw(X) :- pokemon(Y,X),
-            inventory(X),
+            inventory(I),
             jml_inventory(N),
             N1 is N-1,
             retract(jml_inventory(N)),
             asserta(jml_inventory(N1)).
-            del_inv(A,X,B).
+            del_inv(I,X,I2).
 
 /* gym center */
 heal(X) :- pokemon(Y,X),
-            inventory(X),
+            findall(X,inventory(X),ListInventory),
             posisiPlayer(A,B),
             gym(A,B),
             curr_health(X,H),
