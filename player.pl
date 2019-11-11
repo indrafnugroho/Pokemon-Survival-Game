@@ -9,7 +9,6 @@ add_inv([H|T],H,[H|T]).
 add_inv([Z|T1],X,[Z|T2]):- add_inv(T1,X,T2),!.
 
 del_inv([X],X,[]).
-del_inv([H|T],H,[[]|T]).
 del_inv([Z|T1],X,[Z|T2]) :- del_inv(T1,X,T2),!.
 
 catch(X) :-
@@ -19,8 +18,8 @@ catch(X) :-
     N1 is N+1,
     retract(jml_inventory(N)),
     asserta(jml_inventory(N1)),
-    max_inventory(N1),!,
-    add_inv(A,X,B).
+    max_inventory(N1),
+    add_inv(A,X,B),!.
 
 
 throw(X) :- pokemon(Y,X),
