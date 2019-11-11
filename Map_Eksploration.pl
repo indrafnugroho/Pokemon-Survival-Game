@@ -35,7 +35,7 @@ kiri :- posisiPlayer(_,Y), Y==1, write('Tidak bisa kekiri, pager cuy'),nl, !.
 movePokemon(ID) :-
     random(1,11,Xnew),
     random(1,11,Ynew),
-    \posisiPokemon(_,Xnew,Ynew),
+    \+posisiPokemon(_,Xnew,Ynew),
     posisiPokemon(ID,X,Y),
     retract(posisiPokemon(ID,X,Y)),
     asserta(posisiPokemon(ID,Xnew,Ynew)),!.
