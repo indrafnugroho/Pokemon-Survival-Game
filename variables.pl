@@ -10,7 +10,8 @@
 /* static variable*/
 
 /* Pemain */
-inventory(0).
+inventory(snivy).
+inventory(pansage).
 posisiPlayer(1,1).
 
 /* Map */
@@ -86,7 +87,7 @@ health(tympole,100).
 health(cottonee,100).
 health(litwick,100).
 health(heatmor,100).
-health(victiny,10000).
+health(victini,10000).
 health(virizion,101001).
 
 /* Damage */
