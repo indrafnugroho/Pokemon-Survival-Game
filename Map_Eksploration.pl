@@ -79,7 +79,7 @@ spawn:-
     pokemon(ID,Nama),
     spawnPokemon(ID,X,Y,Hasil),
     Hasil==1,
-    nowBattle(Nama).   /* pokemon yang dilawan sekarang */
+    asserta(nowBattle(Nama)).   /* pokemon yang dilawan sekarang */
     write('Kamu bertemu '), write(Nama),nl,
     write('Choose battle/run '), nl, !.
 
