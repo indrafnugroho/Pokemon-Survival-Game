@@ -79,7 +79,7 @@ spawn:-
     pokemon(ID,Nama),
     spawnPokemon(ID,X,Y,Hasil),
     Hasil==1,
-    asserta(nowBattle(Nama)).   /* pokemon yang dilawan sekarang */
+    asserta(nowBattle(Nama)), 
     write('Kamu bertemu '), write(Nama),nl,
     write('Choose battle/run '), nl, !.
 
@@ -89,7 +89,7 @@ spawn:-
     pokemon(ID,Nama),
     spawnPokemon(ID,X,Y,Hasil),
     Hasil\=1,
-    write('Kamu bertemu tidak bertemu pokemon apapun '),  nl, !.
+    write('Kamu tidak bertemu pokemon apapun '),  nl, !.
 
 
 
