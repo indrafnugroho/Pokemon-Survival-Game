@@ -42,16 +42,20 @@ start :-
 	write('                                      `/syyyyssssooooo++++++++//.                                   '),nl,
 	write('                                         ./osyysssssooooooo+/-`                                     '),nl,
 	write('                                             .-:///+///:-.`                                         '),nl,
+    help,nl,
+    status,
     repeat,
 		write('>> '), /* Menandakan input */
 		read(Input),nl, /*Meminta input dari user */
-		do(Input),nl, fail. /* Menjadlankan do(Input) */
+		do(Input),nl,  /* Menjadlankan do(Input) */
+        end_condition(Input).
 
+end_condition(quit).
 
-do(w) :- atas, moveAllPokemon, spawn, !.
-do(s) :- bawah,  moveAllPokemon, spawn, !.
-do(a) :- kiri, moveAllPokemon, spawn, !.
-do(d) :- kanan, moveAllPokemon, spawn, !.
+do(w) :- atas, moveAllPokemon, spawn, map, !.
+do(s) :- bawah,  moveAllPokemon, spawn, map, !.
+do(a) :- kiri, moveAllPokemon, spawn, map, !.
+do(d) :- kanan, moveAllPokemon, spawn, map, !.
 do(map) :- map.
 do(status) :- status.
 do(help) :- help.
