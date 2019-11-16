@@ -1,5 +1,6 @@
 /* dynamic variable */
 :- dynamic(inventory/1).
+:- dynamic(jml_inventory/1).
 :- dynamic(posisiPlayer/2).
 :- dynamic(turnPlayer/1).
 :- dynamic(health/2).
@@ -13,6 +14,10 @@
 inventory(snivy).
 inventory(pansage).
 posisiPlayer(1,1).
+jml_inventory(0).
+
+/* max_inventory */
+max_inventory(6).
 
 /* Map */
 pagar(1,2).
@@ -121,18 +126,18 @@ loc(1,3,'Taman Bermain').
 loc(1,4,'Taman Bermain').
 loc(1,5,'Makam Pokemon').
 loc(1,6,'Makam Pokemon').
-loc(1,7,'Sadikin').
-loc(1,8,'Sadikin').
+loc(1,7,'Stasiun Kereta').
+loc(1,8,'Stasiun Kereta').
 loc(1,9,'ITB').
 loc(1,10,'ITB').
-loc(2,1,'LabDas8').
+loc(2,1,'Toilet').
 loc(2,2,'Taman Bermain').
 loc(2,3,'Taman Bermain').
 loc(2,4,'Taman Bermain').
 loc(2,5,'Sekre Asique').
 loc(2,6,'Sekre Asique').
-loc(2,7,'Sadikin').
-loc(2,8,'Sadikin').
+loc(2,7,'Stasiun Kereta').
+loc(2,8,'Stasiun Kereta').
 loc(2,9,'ITB').
 loc(2,10,'ITB').
 loc(3,1,'ITB').
@@ -155,29 +160,34 @@ loc(4,7,'Hutan').
 loc(4,8,'Hutan').
 loc(4,9,'Rumah nenek').
 loc(4,10,'Rumah nenek').
-loc(5,1,'Bikini bottom').
-loc(5,2,'Bikini bottom').
-loc(5,3,'Bikini bottom').
-loc(5,4,'Atlantis').
-loc(5,5,'Atlantis').
+loc(5,1,'Jalan Raya').
+loc(5,2,'Jalan Raya').
+loc(5,3,'Jalan Raya').
+loc(5,4,'Jalan Raya').
+loc(5,5,'Jalan Raya').
 loc(5,6,'Hutan').
 loc(5,7,'Hutan').
 loc(5,8,'Hutan').
 loc(5,9,'Gunung Pokemon').
 loc(5,10,'Gunung Pokemon').
-loc(6,1,'Bikini bottom').
-loc(6,2,'Bikini Bottom').
-loc(6,3,'Bikini Bottom').
-loc(6,4,'Atlantis').
-loc(6,5,'Atlantis').
+loc(6,1,'Pantai').
+loc(6,2,'Pantai').
+loc(6,3,'Pantai').
+loc(6,4,'Antartika').
+loc(6,5,'Antartika').
 loc(6,6,'Lapangan Cinta').
 loc(6,7,'Lapangan Cinta').
 loc(6,8,'Lapangan Cinta').
-loc(6,9,'Labtek V').
-loc(6,10,'Labtek V').
-loc(7,1,'Labtek V').
+loc(6,9,'Laboratorium Teknik').
+loc(6,10,'Laboratorium Teknik').
+loc(7,1,'Laboratorium Teknik').
 loc(7,2,'Kandang Domba').
 loc(7,3,'Kandang Domba').
+loc(7,4,'Istana Es').
+loc(7,5,'Istana Es').
+loc(7,6,'Bandara').
+loc(7,7,'Bandara').
+
 
 /* Deadzone */
 deadzone(0,0).
