@@ -18,7 +18,7 @@ capture(X) :-
     pokemon(Y,X),
     posisiPlayer(A,B),
     posisiPokemon(X,A,B),
-    asserta (inventory(X)),
+    asserta(inventory(X)),
     jml_inventory(N),
     N1 is N+1,
     retract(jml_inventory(N)),
@@ -27,30 +27,36 @@ capture(X) :-
     N1 < 7,
     add_inv(I,X,I2),!.
 
-
-drop(X) :- pokemon(Y,X),
-            retract (inventory(X)),
-            jml_inventory(N),
-            N1 is N-1,
-            retract(jml_inventory(N)),
-            asserta(jml_inventory(N1)),
-            del_inv(I,X,I2),!.
+/* drop(X) : Menghapus pokemon X dari inventory */
+drop(X) :- 
+    pokemon(Y,X),
+    retract(inventory(X)),
+    jml_inventory(N),
+    N1 is N-1,
+    retract(jml_inventory(N)),
+    asserta(jml_inventory(N1)),
+    del_inv(I,X,I2),!.
 
 /* choose(X) : Pokemon X dipilih dari inventory untuk battle */
 pick(X) :- 
     pokemon(Y,X),
-    findall(X,inventory(X),ListInventory),!.
+    findall(X,inventory(X),I2),!.
+    /* buat attack (?) */
 
 /* gym center */
+/* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
+healX(X) :-  
+    pokemon(Y,X),
+    posisiPlayer(A,B),
+    gym(A,B),
+    curr_health(X,H),
+    health(X,HH),
+    retract(curr_health(X,H)),
+    asserta(curr_health(X,HH)),!.
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
-heal :- \+ pokemon(Y,X),
-            findall(X,inventory(X),ListInventory),
-            posisiPlayer(A,B),
-            gym(A,B),
-            curr_health(X,H),
-            health(X,HH),
-            retract(curr_health(X,H)),
-            asserta(curr_health(X,HH)),!.
+heal :-
+    \+ pokemon(Y,X),
+    healX(X),!.
 
 /* fail state */
 /* fail : jumlah inventory = 0 */
