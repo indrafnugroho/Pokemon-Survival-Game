@@ -8,9 +8,10 @@
 :- dynamic(posisiPokemon/3).
 :- dynamic(battleNow/1).
 :- dynamic(curr_health/2).
+:- dynamic(isSedangBertemuPokemon/1).
+:- dynamic(isBattle/1).
 
 /* static variable*/
-
 /* Pemain */
 
 /* Map */
@@ -122,6 +123,9 @@ weapon(panpour,shotgun).
 
 /* Battle */
 turnPlayer(1).
+
+isSedangBertemuPokemon(0).
+isBattle(0).
 
 /* Location */
 /* location(A,B,C): C berada di koordinat (A,B) */

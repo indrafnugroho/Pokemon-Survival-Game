@@ -1,3 +1,5 @@
+:-include('player.pl').
+
 /* ***** PRINT MAP ***** */
 printMap/2.
 printInfoLokasi/0.
@@ -87,12 +89,14 @@ spawn:-
     posisiPlayer(X,Y),
     posisiPokemon(ID,X,Y),
     pokemon(ID,Nama),
-    % spawnPokemon(ID,X,Y,Hasil),
-    % Hasil==1,
+    spawnPokemon(ID,X,Y,Hasil),
+    Hasil==1,
     asserta(nowBattle(Nama)), 
+    retract(isSedangBertemuPokemon(OldStatus)),
+    NewStatus is 1,
+    asserta(isSedangBertemuPokemon(NewStatus)),
     write('Kamu bertemu '), write(Nama),nl,
-    write('Choose battle/run '), nl, !.
-
+    write('Choose: battle or run ? '), nl, !.
 
 spawn:-
     % posisiPlayer(X,Y),
