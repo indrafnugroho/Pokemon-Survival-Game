@@ -40,7 +40,18 @@ pokemon(13,heatmor).
 /* Posisi pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
 posisiPokemon(1,1,2).
-posisiPokemon(2,3,4).
+posisiPokemon(2,1,3).
+posisiPokemon(3,1,4).
+posisiPokemon(4,1,5).
+posisiPokemon(5,1,6).
+posisiPokemon(6,1,7).
+posisiPokemon(7,1,8).
+posisiPokemon(8,1,9).
+posisiPokemon(9,1,10).
+posisiPokemon(10,2,1).
+posisiPokemon(11,2,2).
+posisiPokemon(12,2,3).
+posisiPokemon(13,2,4).
 
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
@@ -181,6 +192,8 @@ loc(7,4,'Istana Es').
 loc(7,5,'Istana Es').
 loc(7,6,'Bandara').
 loc(7,7,'Bandara').
+/* NAMBAHIN INI DULU SEMENTARA SUPAYA loc tidak akan mengembalikan 'no' */
+loc(_,_,'undefined'). 
 
 
 /* Deadzone */
