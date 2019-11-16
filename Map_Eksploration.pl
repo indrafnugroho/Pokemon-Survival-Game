@@ -60,24 +60,23 @@ movePokemonList(L):-
     movePokemon(H),
     movePokemonList(Tail).
 
-/* SEMENTARA SPAWN POKEMONNYA DIMATIIN DULU *
 /* spawning pokemon */
 /* Jika Hasil == 1 , pokemon yang memiliki ID tersebut, muncul di posisi yang ditentukan */
 /* legendary pokemon */
-% spawnPokemon(ID, X, Y, Hasil):-
-%     pokemon(ID,Nama),
-%     posisiPokemon(ID,X,Y),
-%     legendary(Nama),
-%     random(1,5,RandomValue), 
-%     Hasil is RandomValue,!.
+spawnPokemon(ID, X, Y, Hasil):-
+    pokemon(ID,Nama),
+    posisiPokemon(ID,X,Y),
+    legendary(Nama),
+    random(1,3,RandomValue), 
+    Hasil is RandomValue,!.
 
 /* normal pokemon */
-% spawnPokemon(ID, X, Y, Hasil):-
-%     pokemon(ID,Nama),
-%     posisiPokemon(ID,X,Y),
-%     \+legendary(Nama),
-%     random(1,3,RandomValue), 
-%     Hasil is RandomValue,!.
+spawnPokemon(ID, X, Y, Hasil):-
+    pokemon(ID,Nama),
+    posisiPokemon(ID,X,Y),
+    \+legendary(Nama),
+    random(1,2,RandomValue), 
+    Hasil is RandomValue,!.
 
 spawn:-
     posisiPlayer(X,Y),
