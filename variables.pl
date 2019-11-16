@@ -7,23 +7,22 @@
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
 :- dynamic(battleNow/1).
+:- dynamic(curr_health/2).
 
 /* static variable*/
 
 /* Pemain */
 inventory(snivy).
 inventory(pansage).
-posisiPlayer(1,1).
+posisiPlayer(1,2).
 jml_inventory(0).
-
-/* max_inventory */
-max_inventory(6).
+curr_health(snivy,10).
 
 /* Map */
 pagar(1,2).
 pagar(4,5).
 pagar(6,7).
-gym(3,4).
+gym(1,2).
 gym(8,10).
 
 /* Pokemon */
