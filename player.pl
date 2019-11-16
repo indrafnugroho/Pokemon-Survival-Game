@@ -1,9 +1,13 @@
 :- include('variables.pl').
 
 /* Pemain */
+/* Kondisi awal pemain */
+inventory(snivy).
+inventory(pansage).
+posisiPlayer(1,2).
 jml_inventory(0).
-max_inventory(6).
-posisiPlayer(1,1).
+curr_health(snivy,10).
+
 
 /* Inventory */
 /* add_inv(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */

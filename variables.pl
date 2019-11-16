@@ -12,11 +12,6 @@
 /* static variable*/
 
 /* Pemain */
-inventory(snivy).
-inventory(pansage).
-posisiPlayer(1,2).
-jml_inventory(0).
-curr_health(snivy,10).
 
 /* Map */
 pagar(1,2).
