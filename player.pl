@@ -14,7 +14,7 @@ del_inv([X],X,[]).
 del_inv([Z|T1],X,[Z|T2]) :- del_inv(T1,X,T2),!.
 
 /* catch(X) : Menangkap pokemon X yang sudah dikalahkan pada suatu lokasi tertentu dan memasukannya ke inventory I sehingga jumlah inventory bertambah 1 */
-catch(X) :-
+capture(X) :-
     pokemon(Y,X),
     posisiPlayer(A,B),
     posisiPokemon(X,A,B),
@@ -28,7 +28,7 @@ catch(X) :-
     add_inv(I,X,I2),!.
 
 
-throw(X) :- pokemon(Y,X),
+drop(X) :- pokemon(Y,X),
             retract (inventory(X)),
             jml_inventory(N),
             N1 is N-1,
@@ -37,13 +37,13 @@ throw(X) :- pokemon(Y,X),
             del_inv(I,X,I2),!.
 
 /* choose(X) : Pokemon X dipilih dari inventory untuk battle */
-choose(X) :- 
+pick(X) :- 
     pokemon(Y,X),
     findall(X,inventory(X),ListInventory),!.
 
 /* gym center */
-/* heal(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
-heal(X) :- pokemon(Y,X),
+/* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
+heal :- \+ pokemon(Y,X),
             findall(X,inventory(X),ListInventory),
             posisiPlayer(A,B),
             gym(A,B),
