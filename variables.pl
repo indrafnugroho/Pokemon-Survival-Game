@@ -13,7 +13,6 @@
 
 /* static variable*/
 /* Pemain */
-
 /* Map */
 pagar(1,2).
 pagar(4,5).
@@ -38,7 +37,7 @@ pokemon(11,cottonee).
 pokemon(12,litwick).
 pokemon(13,heatmor).
 
-/* Posisi pokemon */
+/* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
 posisiPokemon(1,1,2).
 posisiPokemon(2,1,3).
@@ -105,6 +104,7 @@ health(virizion,101001).
 /* damage(X,Y) : X memiliki damage sebesar Y */
 damage(victini,135182).
 damage(virizion,182135).
+damage(_,100).
 
 /* modifier */
 /* modifier(X,Y) : X is super effective against Y */

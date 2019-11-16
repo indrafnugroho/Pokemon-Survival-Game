@@ -7,7 +7,7 @@ map/0.
 /* Posisi player */
 printMap(X,Y) :- posisiPlayer(X,Y), !,  write('P '), Y1 is Y+1, printMap(X,Y1), !.
 /* UNTUK DEBUG: nampilin posisi pokemon */
-printMap(X,Y) :- posisiPokemon(_,X,Y), !,  write('O '), Y1 is Y+1, printMap(X,Y1), !.
+% printMap(X,Y) :- posisiPokemon(_,X,Y), !,  write('O '), Y1 is Y+1, printMap(X,Y1), !.
 /* pagar dan gym */
 printMap(X,Y) :- gym(X,Y), !,  write('G '), Y1 is Y+1, printMap(X,Y1), !.
 printMap(X,Y) :- pagar(X,Y), !,  write('X '), Y1 is Y+1, printMap(X,Y1), !.
@@ -89,6 +89,9 @@ spawn:-
     posisiPlayer(X,Y),
     posisiPokemon(ID,X,Y),
     pokemon(ID,Nama),
+    type(TipePokemon,Nama),
+    health(Nama,HealthPokemon),
+    damage(Nama,DamagePokemon),
     spawnPokemon(ID,X,Y,Hasil),
     Hasil==1,
     asserta(nowBattle(Nama)), 
@@ -96,6 +99,9 @@ spawn:-
     NewStatus is 1,
     asserta(isSedangBertemuPokemon(NewStatus)),
     write('Kamu bertemu '), write(Nama),nl,
+    write('Type     : '), write(TipePokemon),nl,
+    write('Health   : '), write(HealthPokemon),nl,
+    write('Damage   : '), write(DamagePokemon),nl,
     write('Choose: battle or run ? '), nl, !.
 
 spawn:-

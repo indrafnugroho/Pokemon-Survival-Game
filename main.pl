@@ -3,6 +3,7 @@
 :- include('Show_Status.pl').
 :- include('Show_Help.pl').
 :- include('player.pl').
+:- include('attack.pl').
 
 start :-
 	write('                                                   .//`                                           '),nl,
