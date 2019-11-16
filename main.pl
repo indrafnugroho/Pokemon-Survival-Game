@@ -46,16 +46,16 @@ start :-
     status,
     repeat,
 		write('>> '), /* Menandakan input */
-		read(Input),nl, /*Meminta input dari user */
+		read(Input), /*Meminta input dari user */
 		do(Input),nl,  /* Menjadlankan do(Input) */
         end_condition(Input).
 
 end_condition(quit).
 
-do(w) :- atas, moveAllPokemon, spawn, map, !.
-do(s) :- bawah,  moveAllPokemon, spawn, map, !.
-do(a) :- kiri, moveAllPokemon, spawn, map, !.
-do(d) :- kanan, moveAllPokemon, spawn, map, !.
+do(w) :- atas, moveAllPokemon, map, spawn,  !.
+do(s) :- bawah,  moveAllPokemon, map, spawn,  !.
+do(a) :- kiri, moveAllPokemon, map, spawn,  !.
+do(d) :- kanan, moveAllPokemon, map, spawn, !.
 do(map) :- map.
 do(status) :- status.
 do(help) :- help.
@@ -63,4 +63,5 @@ do(heal) :- heal.
 do(capture(X)) :- capture(X).
 do(drop(X)) :- drop(X).
 do(pick(X)) :- pick(X).
+do(quit).
 do(fail) :- fail.
