@@ -6,7 +6,7 @@
 :- dynamic(health/2).
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
-:- dynamic(battleNow/2).
+:- dynamic(battleNow/1).
 
 /* static variable*/
 
