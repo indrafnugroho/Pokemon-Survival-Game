@@ -3,6 +3,7 @@
 :- include('Show_Status.pl').
 :- include('Show_Help.pl').
 :- include('player.pl').
+:- include('battle.pl').
 :- include('attack.pl').
 
 start :-
@@ -56,13 +57,10 @@ start :-
 /* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
 do(w) :- isSedangBertemuPokemon(Status), Status is 0, atas, moveAllPokemon, map, spawn,  !.
 do(w) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
-
 do(s) :- isSedangBertemuPokemon(Status), Status is 0, bawah,  moveAllPokemon, map, spawn,  !.
 do(s) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
-
 do(a) :- isSedangBertemuPokemon(Status), Status is 0, kiri, moveAllPokemon, map, spawn,  !.
 do(a) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
-
 do(d) :- isSedangBertemuPokemon(Status), Status is 0, kanan, moveAllPokemon, map, spawn, !.
 do(d) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
 
@@ -77,7 +75,8 @@ do(run) :-
     print('Anda tidak bisa melakukan ini'),!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 1,
-    pilihPokemon, !.
+    pilihPokemon, 
+    !.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 0,
     print('Anda tidak bisa melakukan ini'),!.
@@ -101,22 +100,21 @@ do(pick(X)) :-
     print('Kamu tidak sedang bertarung, taruh kembali pokemon mu!'),!. 
 
 do(quit) :- 
-	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,
+	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,!.
 	write('>> '),read(X),end(X),!.
 
 do(_) :- print('Masukkan Anda salah'),!.
 do(fail) :- fail.
 
+
 end(n) :-
 	write('Lanjutkan petualanganmu!'),nl,!.
-
 end(y) :- halt,!.
 
 end_condition :-
 	jml_inventory(0),!,
 	write('Aril: Ho ho ho. You have failed to complete the missions.'),nl,
 	write('As for now, meet your fate and disappear from this world!'),nl,end(y),!.
-
 end_condition :-
   	totalLegendary(0), !,
   	write('Aril: Congratulation!!! You have helped me in defeating or capturing the 2 Legendary Pokemons.'),nl,

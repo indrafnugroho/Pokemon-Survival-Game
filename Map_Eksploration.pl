@@ -1,3 +1,5 @@
+:-include('player.pl').
+
 /* ***** PRINT MAP ***** */
 printMap/2.
 printInfoLokasi/0.
@@ -92,7 +94,7 @@ spawn:-
     damage(Nama,DamagePokemon),
     spawnPokemon(ID,X,Y,Hasil),
     Hasil==1,
-    asserta(nowBattle(Nama)), 
+    asserta(battleNow(Nama)), 
     retract(isSedangBertemuPokemon(OldStatus)),
     NewStatus is 1,
     asserta(isSedangBertemuPokemon(NewStatus)),
