@@ -15,9 +15,9 @@ inventory(emolga).
 inventory(pidove).
 % inventory(throh).
 /* Current Health */
-curr_health(1,10).
+curr_health(1,100).
 curr_health(2,100).
-curr_health(3,10).
+curr_health(3,100).
 curr_health(4,100).
 curr_health(5,10).
 

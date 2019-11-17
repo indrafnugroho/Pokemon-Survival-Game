@@ -84,7 +84,7 @@ do(battle) :-
 do(map) :- map,!.
 do(status) :- status,!.
 do(help) :- help,!.
-do(heal) :- heal,!.
+do(heal) :- !,heal.
 do(drop(X)) :- drop(X),!.
 
 /* pick(X) gak bisa dijalanin kalo player lagi gak battle */
@@ -99,8 +99,8 @@ do(pick(X)) :-
     print('Kamu tidak sedang bertarung, taruh kembali pokemon mu!'),!. 
 
 do(quit) :- 
-	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,!.
-	write('>> '),read(X),end(X),!.
+	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,
+	write('>>>> '),read(X),!,end(X),!.
 
 do(_) :- print('Masukkan Anda salah'),!.
 do(fail) :- fail.
