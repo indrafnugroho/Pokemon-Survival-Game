@@ -36,6 +36,12 @@ pokemon(10,tympole).
 pokemon(11,cottonee).
 pokemon(12,litwick).
 pokemon(13,heatmor).
+pokemon(14,pidove).
+pokemon(15,woobat).
+pokemon(16,blitzle).
+pokemon(17,emolga).
+pokemon(18,throh).
+pokemon(19,sawk).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
@@ -67,6 +73,12 @@ type(fire,litwick).
 type(fire,heatmor).
 type(grass,virizion).
 type(fire,victini).
+type(flying,pidove).
+type(flying,woobat).
+type(electric,blitzle).
+type(electric,emolga).
+type(fighting,throh).
+type(fighting,sawk).
 
 /* Starter Pokemon */
 /* pokemon ini tidak dapat 'berkeliaran' di rumput.
