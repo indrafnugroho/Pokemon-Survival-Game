@@ -30,16 +30,20 @@ bawah/0.
 kanan/0.
 kiri/0.
 /* */
-atas :- posisiPlayer(X,Y), X\=1, X1 is X-1,  retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X1,Y)), !.    
+atas :- posisiPlayer(X,Y), X\=1, X1 is X-1, \+pagar(X1,Y), retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X1,Y)), !.    
+atas :- posisiPlayer(X,Y), X\=1, X1 is X-1, pagar(X1,Y), write('Tidak bisa keatas, pager cuy'),nl,  !. 
 atas :- posisiPlayer(X,_), X==1, write('Tidak bisa keatas, pager cuy'),nl, !. 
 /* */
-bawah :- posisiPlayer(X,Y), X\=10, X1 is X+1, retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X1,Y)), !.
+bawah :- posisiPlayer(X,Y), X\=10, X1 is X+1,\+pagar(X1,Y), retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X1,Y)), !.
+bawah :- posisiPlayer(X,Y), X\=10, X1 is X+1, pagar(X1,Y), write('Tidak bisa kebawah, pager cuy'),nl,  !. 
 bawah :- posisiPlayer(X,_), X==10, write('Tidak bisa kebawah, pager cuy'),nl, !. 
 /* */
-kanan :- posisiPlayer(X,Y), Y\=10, Y1 is Y+1, retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X,Y1)), !.
+kanan :- posisiPlayer(X,Y), Y\=10, Y1 is Y+1, \+pagar(X,Y1),retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X,Y1)), !.
+kanan :- posisiPlayer(X,Y), Y\=10, Y1 is Y+1, pagar(X,Y1),  write('Tidak bisa kekanan, pager cuy'),nl,  !. 
 kanan :- posisiPlayer(_,Y), Y==10, write('Tidak bisa kekanan, pager cuy'),nl, !. 
 /* */
-kiri :- posisiPlayer(X,Y), Y\=1, Y1 is Y-1, retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X,Y1)), !.
+kiri :- posisiPlayer(X,Y), Y\=1, Y1 is Y-1, \+pagar(X,Y1), retract(posisiPlayer(X,Y)), asserta(posisiPlayer(X,Y1)), !.
+kiri :-  posisiPlayer(X,Y), Y\=1, Y1 is Y-1, pagar(X,Y1),write('Tidak bisa kekiri, pager cuy'),nl, !. 
 kiri :- posisiPlayer(_,Y), Y==1, write('Tidak bisa kekiri, pager cuy'),nl, !. 
 
 /* pokemon movement */
@@ -48,9 +52,24 @@ movePokemon(ID) :-
     random(1,11,Ynew),
     /* DIKOMEN KARENA MEMBUAT movePokemon mengembalikan 'no' ketika hasil random sama dengan sebelumnya s.*/
     % \+posisiPokemon(_,Xnew,Ynew),
+    \+gym(Xnew,Ynew),
+    pokemon(ID,Nama),
+    \+legendary(Nama),
     posisiPokemon(ID,X,Y),
     retract(posisiPokemon(ID,X,Y)),
     asserta(posisiPokemon(ID,Xnew,Ynew)),!.
+
+movePokemon(ID) :-
+    random(1,11,Xnew),
+    random(1,11,Ynew),
+    gym(Xnew,Ynew),!.
+
+movePokemon(ID) :-
+    random(1,11,Xnew),
+    random(1,11,Ynew),
+    posisiPokemon(ID,X,Y),
+    pokemon(ID,Nama),
+    legendary(Nama),!.
 
 moveAllPokemon :-
     findall(ID,posisiPokemon(ID,_,_),ListPokemon),
@@ -110,3 +129,10 @@ spawn:-
     % spawnPokemon(ID,X,Y,Hasil),
     % Hasil\=1,
     write('Kamu tidak bertemu pokemon apapun '),  nl, !.
+
+
+cekGym:-
+    posisiPlayer(X,Y),
+    gym(X,Y),
+    write('Kamu berada di gym, ketik heal untuk mengeheal semua pokemon kamu'), nl,
+    retract(gym(X,Y)), !.
