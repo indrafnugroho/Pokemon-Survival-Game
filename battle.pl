@@ -3,10 +3,10 @@ executeRun/1.
 battle/0.
 
 executeRun(RandomValue) :-
-    RandomValue is 1,
+    RandomValue == 1,
     print('Kamu berhasil lari dari Pokemon'),nl,
     retract(isSedangBertemuPokemon(OldStatus)),
-    NewStatus is 0,
+    NewStatus = 0,
     asserta(isSedangBertemuPokemon(NewStatus)),!.
 
 executeRun(_) :-
@@ -15,7 +15,7 @@ executeRun(_) :-
 
 pilihPokemon :-
     retract(isBattle(OldStatus)),
-    Status is 1,
+    Status = 1,
     asserta(isBattle(Status)),
     write('Pilih Pokemon mu!'),nl.
 
@@ -23,52 +23,83 @@ pilihPokemon :-
 turnStatus(1).
 
 /* turn pemain */
-turnPlayer:-
+turnPlayer(PickedPokemon,Enemy) :-
     turnStatus(X),
-    X is 1,
-    turnPemain,
+    X == 1,
+    turnPemain(PickedPokemon,Enemy),
     X1 is 0,
     retract(turnStatus(X)),
     asserta(turnStatus(X1)),
     !.
 
 /* turn enemy */
-turnPlayer :-
+turnPlayer(PickedPokemon,Enemy) :-
     turnStatus(X),
-    X is 0,
-    turnEnemy,
+    X == 0,
+    turnEnemy(PickedPokemon,Enemy),
     X1 is 1,
     retract(turnStatus(X)),
     asserta(turnStatus(X1)),
     !.      
 
-turnPemain :-
+turnPemain(PickedPokemon,Enemy) :-
     nl,print('-> '),
     read(X),
-    commandPlayer(X),
+    commandPlayer(X,PickedPokemon,Enemy),
     nl,!.
 
-turnEnemy :-
-    !.
-
-commandPlayer(attack) :-
-    pick(PokemonSerang),
-    battleNow(PokemonDiSerang),
-
-    retract(curr_health(PokemonDiSerang,Health0)),
-    damage(PokemonSerang,Damage),
-    type(T1,PokemonSerang),
-    type(T2,PokemonDiSerang),
+turnEnemy(PickedPokemon,Enemy) :-
+    retract(curr_health(PickedPokemon,Health0)),
+    damage(Enemy,Damage),
+    type(T1,Enemy),
+    type(T2,PickedPokemon),
     % \+superEffective(T1,T2),
     % \+notEffective(T1,T2),
     Health1 is Health0-Damage,
-    asserta(curr_health(PokemonDiSerang,Health1)),
-    nl,print(PokemonSerang),print(' dealt '),print(Damage),print(' to '), print(PokemonDiSerang),nl,
-    !,fail.
+    asserta(curr_health(PickedPokemon,Health1)),
+    nl,print(Enemy),print(' dealt '),print(Damage),print(' to '), print(PickedPokemon),nl,
+    !.
+
+commandPlayer(attack,PickedPokemon,Enemy) :-
+    damage(PickedPokemon,Damage),
+    type(T1,PickedPokemon),
+    type(T2,Enemy),
+    \+superEffective(T1,T2),
+    \+notEffective(T1,T2),
+    retract(curr_health(Enemy,Health0)),
+    Health1 is Health0-Damage,
+    asserta(curr_health(Enemy,Health1)),
+    nl,print(PickedPokemon),print(' dealt '),print(Damage),print(' to '), print(Enemy),nl,
+    !.
+
+commandPlayer(attack,PickedPokemon,Enemy) :-
+    damage(PickedPokemon,Damage),
+    type(T1,PickedPokemon),
+    type(T2,Enemy),
+    superEffective(T1,T2),
+    \+notEffective(T1,T2),
+    NewDamage is Damage + (Damage/2),
+    retract(curr_health(Enemy,Health0)),
+    Health1 is Health0-NewDamage,
+    asserta(curr_health(Enemy,Health1)),
+    nl,print(PickedPokemon),print(' dealt '),print(NewDamage),print(' to '),print(Enemy),
+    !.
+
+commandPlayer(attack,PickedPokemon,Enemy) :-
+    damage(PickedPokemon,Damage),
+    type(T1,PickedPokemon),
+    type(T2,Enemy),
+    \+superEffective(T1,T2),
+    notEffective(T1,T2),
+    NewDamage is Damage - (Damage/2),
+    retract(curr_health(Enemy,Health0)),
+    Health1 is Health0-NewDamage,
+    asserta(curr_health(Enemy,Health1)),
+    nl,print(PickedPokemon),print(' dealt '),print(NewDamage),print(' to '),print(Enemy),
+    !.
 
 /************************************************************************************************************/
-battle :-
-    pick(PickedPokemon),
+battle(PickedPokemon) :-
     write('I choose you '), write(PickedPokemon), nl,
     battleNow(Enemy),
     health(PickedPokemon,H0),
@@ -87,7 +118,6 @@ battle :-
         write('Type: '),write(EnemyType),nl,
 
         /* cetak data pokemon kita */
-        pick(PickedPokemon),
         curr_health(PickedPokemon,PickedPokemonHealth),
         type(TypePickedPokemon,PickedPokemon),
 
@@ -95,17 +125,16 @@ battle :-
         write('Health: '),write(PickedPokemonHealth),nl,
         write('Type: '),write(TypePickedPokemon),nl,
 
-        turnPlayer,
-        end_battle.
+        turnStatus(X),
+
+        turnPlayer(PickedPokemon,Enemy),
+        end_battle(PickedPokemon, Enemy).
 /************************************************************************************************************/
 
-end_battle :-
-    pick(PickedPokemon),
+end_battle(PickedPokemon,Enemy) :-
     curr_health(PickedPokemon,Health),
-    Health =< 0 ,!.
+    Health =< 0.
 
-end_battle :-
-    battleNow(Enemy),
+end_battle(PickedPokemon, Enemy) :-
     curr_health(Enemy,Health),
-    Health =< 0 ,!.
-
+    Health =< 0.

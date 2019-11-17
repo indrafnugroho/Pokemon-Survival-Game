@@ -6,6 +6,20 @@ idAv([1,2,3,4,5,6]).
 
 /* Pemain */
 /* Kondisi awal pemain */
+inventory(snivy).
+inventory(pansear).
+inventory(panpour).
+inventory(emolga).
+inventory(pidove).
+inventory(throh).
+posisiPlayer(1,2).
+posisiPokemon(1,1,2).
+jml_inventory(1).
+curr_health(snivy,10).
+curr_health(victini,100).
+curr_health(virizion,100).
+
+
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */
