@@ -1,23 +1,34 @@
 :- include('variables.pl').
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
+:- dynamic(no_inventory/2).
 
-idAv([2,3,4,5,6]).
+idAv([6]).
 
 /* Pemain */
 /* Kondisi awal pemain */
 inventory(snivy).
+inventory(pansear).
+inventory(panpour).
+inventory(emolga).
+inventory(pidove).
+% inventory(throh).
+/* Current Health */
+curr_health(1,100).
+curr_health(2,100).
+curr_health(3,100).
+curr_health(4,100).
+curr_health(5,100).
 
 no_inventory(1,snivy).
-
-posisiPlayer(1,1).
-
-jml_inventory(1).
-curr_health(snivy,10).
-curr_health(victini,100).
-curr_health(virizion,100).
-
-
+no_inventory(2,pansear).
+no_inventory(3,panpour).
+no_inventory(4,emolga).
+no_inventory(5,pidove).
+% no_inventory(6,throh).
+posisiPlayer(1,2).
+posisiPokemon(1,1,2).
+jml_inventory(5).
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */
@@ -134,7 +145,7 @@ capture(X) :-
     idAv(List),
     isExist(List,6),
     asserta(no_inventory(6,X)),
-    del_id(List,6,Z),
+    del_id(List,6,Z),    
     retract(idAv(List)),
     asserta(idAv(Z)),
     jml_inventory(N),
@@ -157,8 +168,9 @@ drop(M) :-
     inventory(X),
     idAv(List),
     add_id(List,M,List2),
+    sort(List2,SortedList),
     retract(idAv(List)),
-    asserta(idAv(List2)),
+    asserta(idAv(SortedList)),
     jml_inventory(N),
     N1 is N-1,
     retract(jml_inventory(N)),
