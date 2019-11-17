@@ -107,7 +107,7 @@ do(_) :- print('Masukkan Anda salah'),!.
 do(fail) :- fail.
 
 
-end(n) :-
+end('n') :-
 	write('Lanjutkan petualanganmu!'),nl,!.
 end(y) :- halt,!.
 
