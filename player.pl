@@ -2,6 +2,7 @@
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
 :- dynamic(no_inventory/2).
+:- dynamic(curr_health/2).
 
 idAv([6]).
 
@@ -14,11 +15,11 @@ inventory(emolga).
 inventory(pidove).
 % inventory(throh).
 /* Current Health */
-curr_health(1,100).
+curr_health(1,10).
 curr_health(2,100).
-curr_health(3,100).
+curr_health(3,10).
 curr_health(4,100).
-curr_health(5,100).
+curr_health(5,10).
 
 no_inventory(1,snivy).
 no_inventory(2,pansear).
@@ -187,19 +188,22 @@ pick(N) :-
 /* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
 healX(X) :-  
     pokemon(Y,X),
+    no_inventory(M,X),
     inventory(X),
     posisiPlayer(A,B),
     gym(A,B),
+    curr_health(M,H),
     health(X,HH),
     Z is HH,
-    retract(curr_health(X,H)),
-    asserta(curr_health(X,Z)),
-    write('Health '),
+    retract(curr_health(M,H)),
+    asserta(curr_health(M,Z)),
+    write('Selamat! Health '),
     write(X),
-    write('menjadi maksimal'),nl,!.
+    write(' menjadi maksimal'),nl,!.
+
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
-    inventory(X),
+    !,inventory(X),
     pokemon(Y,X),
     healX(X).
 
