@@ -1,4 +1,4 @@
-:- include('variables.pl').
+
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
 
@@ -12,6 +12,12 @@ inventory(panpour).
 inventory(emolga).
 inventory(pidove).
 inventory(throh).
+no_inventory(1,snivy).
+no_inventory(2,pansear).
+no_inventory(3,panpour).
+no_inventory(4,emolga).
+no_inventory(5,pidove).
+no_inventory(6,throh).
 posisiPlayer(1,2).
 posisiPokemon(1,1,2).
 jml_inventory(1).
