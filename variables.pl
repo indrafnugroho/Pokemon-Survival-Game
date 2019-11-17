@@ -1,5 +1,6 @@
 /* dynamic variable */
 :- dynamic(inventory/1).
+:- dynamic(legendary/1).
 :- dynamic(totalLegendary/1).
 :- dynamic(jml_inventory/1).
 :- dynamic(posisiPlayer/2).
@@ -46,7 +47,6 @@ pokemon(19,sawk).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
-posisiPokemon(1,1,2).
 posisiPokemon(4,1,2).
 posisiPokemon(5,1,2).
 posisiPokemon(6,1,2).

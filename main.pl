@@ -4,7 +4,6 @@
 :- include('Show_Help.pl').
 :- include('player.pl').
 :- include('battle.pl').
-:- include('attack.pl').
 
 start :-
 	write('                                                   .//`                                           '),nl,
@@ -44,7 +43,12 @@ start :-
 	write('                                      `/syyyyssssooooo++++++++//.                                   '),nl,
 	write('                                         ./osyysssssooooooo+/-`                                     '),nl,
 	write('                                             .-:///+///:-.`                                         '),nl,
-    help,nl,
+    write('dr. Shark: Hello!'),nl,
+    write('           Welcome to the world of Pokemon!'),nl,
+    write('           Your mission is to defeat the legendary Pokemons roaming in this world'),nl,
+    write('           I now give you one of the three Pokemons from my lab to start your adventure'),nl,
+    write('           Good Luck!'),nl,nl,
+	help,nl,
     status,nl,
     map,nl,
 
@@ -56,13 +60,13 @@ start :-
 
 /* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
 do(w) :- isSedangBertemuPokemon(Status), Status == 0, atas, map, moveAllPokemon,  spawn, cekGym, !.
-do(w) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), cekGym,!.
+do(w) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
 do(s) :- isSedangBertemuPokemon(Status), Status == 0, bawah, map, moveAllPokemon,  spawn, cekGym, !.
-do(s) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), cekGym,!.
+do(s) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
 do(a) :- isSedangBertemuPokemon(Status), Status == 0, kiri,map,  moveAllPokemon, spawn, cekGym, !.
-do(a) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'),cekGym, !.
+do(a) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'),cekGym, !.
 do(d) :- isSedangBertemuPokemon(Status), Status == 0, kanan, map,moveAllPokemon,  spawn, cekGym,!.
-do(d) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), cekGym,!.
+do(d) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
 
 /* run dan battle hanya bisa dijalanin kalo player lagi ketemu pokemon */
 do(run) :- 
@@ -72,7 +76,7 @@ do(run) :-
 do(run) :- 
     isSedangBertemuPokemon(Status), Status is 0,
     isBattle(StatusBattle), StatusBattle is 1,
-    print('Anda tidak bisa melakukan ini'),!.
+    print('You can\'t do that'),!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 1,
     pilihPokemon,
@@ -80,7 +84,7 @@ do(battle) :-
     !.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 0,
-    print('Anda tidak bisa melakukan ini'),!.
+    print('You can\'t do that'),!.
 
 do(map) :- map,!.
 do(status) :- status,!.
@@ -94,28 +98,28 @@ do(pick(X)) :-
     Status is 1, 
     pick(X), 
     battle(X),!.
-do(pick(X)) :- 
+do(pick(_)) :- 
     isBattle(Status), 
     Status is 0,
-    print('Kamu tidak sedang bertarung, taruh kembali pokemon mu!'),!. 
+    print('You can\'t do that! You are not in a fight now'),nl,!. 
 
 do(quit) :- 
-	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,
-	write('>>>> '),read(X),!,end(X),!.
+	write('Are you sure you wanna leave the game? [y/n]'),nl,
+	write('>> '),read(X),!,end(X),!.
 
-do(_) :- print('Masukkan Anda salah'),!.
+do(_) :- print('You input the wrong command!'),nl,!.
 do(fail) :- fail.
 
 
 end('n') :-
-	write('Lanjutkan petualanganmu!'),nl,!.
+	write('Please continue your adventure, trainer!'),nl,!.
 end(y) :- halt,!.
 
 end_condition :-
 	jml_inventory(0),!,
-	write('Aril: Ho ho ho. You have failed to complete the missions.'),nl,
+	write('dr. Shark: Ho ho ho. You have failed to complete the missions.'),nl,
 	write('As for now, meet your fate and disappear from this world!'),nl,end(y),!.
 end_condition :-
   	totalLegendary(0), !,
-  	write('Aril: Congratulation!!! You have helped me in defeating or capturing the 2 Legendary Pokemons.'),nl,
- 	write('As promised, I won’t kill you and you’re free!'),nl,end(y),!.
+  	write('dr. Shark: Congratulation!!! You have helped me in defeating or capturing the 2 Legendary Pokemons.'),nl,
+ 	write('As promised, I won\'t kill you and you\'re free!'),nl,end(y),!.

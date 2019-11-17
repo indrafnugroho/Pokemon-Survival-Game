@@ -1,9 +1,8 @@
-:- include('variables.pl').
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
 :- dynamic(no_inventory/2).
 :- dynamic(curr_health/2).
-:-dynamic(isSkillUsed_Self/2).
+:- dynamic(isSkillUsed_Self/2).
 
 idAv([6]).
 
@@ -11,32 +10,33 @@ idAv([6]).
 /* Kondisi awal pemain */
 inventory(snivy).
 inventory(pansage).
-% inventory(panpour).
-% inventory(emolga).
-% inventory(pidove).
-% inventory(throh).
+inventory(panpour).
+inventory(emolga).
+inventory(pidove).
+inventory(throh).
 /* Current Health */
 curr_health(1,100).
 curr_health(2,100).
-% curr_health(3,100).
-% curr_health(4,100).
-% curr_health(5,100).
+curr_health(3,100).
+curr_health(4,100).
+curr_health(5,100).
+curr_health(6,100).
 /* isSkillUsed */
 isSkillUsed_Self(1,0).
 isSkillUsed_Self(2,0).
-% isSkillUsed_Self(3,0).
-% isSkillUsed_Self(4,0).
-% isSkillUsed_Self(5,0).
+isSkillUsed_Self(3,0).
+isSkillUsed_Self(4,0).
+isSkillUsed_Self(5,0).
+isSkillUsed_Self(6,0).
 
 no_inventory(1,snivy).
 no_inventory(2,pansage).
-% no_inventory(3,panpour).
-% no_inventory(4,emolga).
-% no_inventory(5,pidove).
-% no_inventory(6,throh).
+no_inventory(3,panpour).
+no_inventory(4,emolga).
+no_inventory(5,pidove).
+no_inventory(6,throh).
 posisiPlayer(1,1).
-posisiPokemon(1,1,2).
-jml_inventory(2).
+jml_inventory(6).
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */
@@ -50,15 +50,15 @@ del_id([H, H2|T],X, [H|T2]) :-
     del_id([H2|T], X, T2),!.
 
 /* idx_inv(IN,X,IDX) : mengembalikan nilai indeks IDX elemen X dari inventori IN */
-idx_inv([H|T], H, 1).
-idx_inv([H|T], X, I) :-
+idx_inv([H|_T], H, 1).
+idx_inv([_H|T], X, I) :-
     idx_inv(T, X, Z),
     I is (Z+1),!.
 
 /* isExist(X,Y) : Y ada di dalam List X */
 isExist([X],X).
-isExist([H|T],H).
-isExist([H|T],X) :- isExist(T,X),!.
+isExist([H|_T],H).
+isExist([_H|T],X) :- isExist(T,X),!.
 
 /* capture(X) : Menangkap pokemon X yang sudah dikalahkan pada suatu lokasi tertentu dan memasukannya ke inventory I sehingga jumlah inventory bertambah 1 */
 capture(X) :-
@@ -163,16 +163,16 @@ capture(X) :-
     asserta(jml_inventory(N1)),
     asserta(inventory(X)),!.
 
-capture(X) :-
+capture(_X) :-
     jml_inventory(N),
     N1 is N+1,
     N1 > 6,
-    write('Inventory penuh, drop pokemon anda dulu'), nl, !.
+    write('Inventory penuh, drop pokemon Anda dulu'), nl, !.
 
 /* drop(X) : Menghapus pokemon X dari inventory */
 drop(M) :- 
     no_inventory(M,X),
-    pokemon(Y,X),
+    pokemon(_Y,X),
     inventory(X),
     idAv(List),
     add_id(List,M,List2),
@@ -189,12 +189,12 @@ drop(M) :-
 /* choose(X) : Pokemon X dipilih dari inventory untuk battle */
 pick(N) :- 
     no_inventory(N,X),
-    pokemon(Y,X),!.
+    pokemon(_Y,X),!.
 
 /* gym center */
 /* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
 healX(X) :-  
-    pokemon(Y,X),
+    pokemon(_Y,X),
     no_inventory(M,X),
     inventory(X),
     posisiPlayer(A,B),
@@ -204,16 +204,16 @@ healX(X) :-
     Z is HH,
     retract(curr_health(M,H)),
     asserta(curr_health(M,Z)),
-    write('Selamat! Health '),
+    write('Your '),
     write(X),
-    write(' menjadi maksimal'),nl,!.
+    write(' is fully healed'),nl,!.
 
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
     !,inventory(X),
-    pokemon(Y,X),
+    pokemon(_Y,X),
     healX(X).
 
-/* fail state */
-/* fail : jumlah inventory = 0 */
-fail :- jml_inventory(0),!.
+% /* fail state */
+% /* fail : jumlah inventory = 0 */
+% fail :- jml_inventory(0),!.

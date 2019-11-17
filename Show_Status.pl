@@ -13,24 +13,27 @@ showStatusList([]).
 showStatusList(L) :-
     L = [N|T],
     no_inventory(N,H),
-    pokemon(X,H),
+    pokemon(_X,H),
     write(N),
     write('. '),
-    write(H),nl,
-    
-    type(Z,H),
-    write('Tipe:'),
-    write(Z),nl,nl,
-    showStatusList(T),!.
-
-showStatusList(L) :-
-    L = [H|T],
-    legendary(H),
     write(H),nl,
     curr_health(N,Y),
     write('Health:'),
     write(Y),nl,
     type(Z,H),
-    write('Tipe:'),
+    write('Type:'),
+    write(Z),nl,nl,
+    showStatusList(T),!.
+
+showStatusList(L) :-
+    totalLegendary(N), N\=0,
+    L = [H|T],
+    legendary(H),
+    write(H),nl,
+    health(H,Y),
+    write('Health:'),
+    write(Y),nl,
+    type(Z,H),
+    write('Type:'),
     write(Z),nl,nl,
     showStatusList(T),!.
