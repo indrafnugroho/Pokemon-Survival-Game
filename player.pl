@@ -6,7 +6,10 @@ inventory(snivy).
 inventory(pansage).
 posisiPlayer(1,2).
 jml_inventory(0).
-curr_health(snivy,10).
+currHealth(snivy,10).
+currHealth(pansage,20).
+currHealth(victini,10000).
+currHealth(virizion,101001).
 
 
 /* Inventory */
@@ -27,9 +30,9 @@ capture(X) :-
     asserta(inventory(X)),
     jml_inventory(N),
     N1 is N+1,
+    N1 < 7,
     retract(jml_inventory(N)),
     asserta(jml_inventory(N1)),
-    N1 < 7,
     add_inv(I,X,I2),!.
 
 /* drop(X) : Menghapus pokemon X dari inventory */
@@ -52,17 +55,18 @@ pick(X) :-
 /* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
 healX(X) :-  
     pokemon(Y,X),
+    inventory(X),
     posisiPlayer(A,B),
     gym(A,B),
-    curr_health(X,H),
     health(X,HH),
-    Z is HH;
-    retract(curr_health(X,H)),
-    asserta(curr_health(X,Z)),!.
+    Z is HH,
+    retract(currHealth(X,H)),
+    asserta(currHealth(X,Z)),!.
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
-    \+ pokemon(Y,X),
-    healX(X),!.
+    inventory(X),
+    pokemon(Y,X),
+    healX(X).
 
 /* fail state */
 /* fail : jumlah inventory = 0 */

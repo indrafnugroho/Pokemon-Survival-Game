@@ -55,6 +55,7 @@ do(d) :- kanan, moveAllPokemon, spawn, !.
 do(map) :- map.
 do(status) :- status.
 do(help) :- help.
+do(heal(X)) :- heal(X).
 do(heal) :- heal.
 do(capture(X)) :- capture(X).
 do(drop(X)) :- drop(X).
