@@ -1,4 +1,3 @@
-
 /* STATUS */
 status :-
     write('Your Pokemon:'), nl,
@@ -17,7 +16,7 @@ showStatusList(L) :-
     write(N),
     write('. '),
     write(H),nl,
-    health(H,Y),
+    curr_health(N,Y),
     write('Health:'),
     write(Y),nl,
     type(Z,H),
@@ -29,7 +28,7 @@ showStatusList(L) :-
     L = [H|T],
     legendary(H),
     write(H),nl,
-    health(H,Y),
+    curr_health(N,Y),
     write('Health:'),
     write(Y),nl,
     type(Z,H),

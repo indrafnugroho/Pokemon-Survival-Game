@@ -1,8 +1,8 @@
-
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
+:- dynamic(no_inventory/2).
 
-idAv([1,2,3,4,5,6]).
+idAv([6]).
 
 /* Pemain */
 /* Kondisi awal pemain */
@@ -11,21 +11,23 @@ inventory(pansear).
 inventory(panpour).
 inventory(emolga).
 inventory(pidove).
-inventory(throh).
+% inventory(throh).
+/* Current Health */
+curr_health(1,100).
+curr_health(2,100).
+curr_health(3,100).
+curr_health(4,100).
+curr_health(5,100).
+
 no_inventory(1,snivy).
 no_inventory(2,pansear).
 no_inventory(3,panpour).
 no_inventory(4,emolga).
 no_inventory(5,pidove).
-no_inventory(6,throh).
+% no_inventory(6,throh).
 posisiPlayer(1,2).
 posisiPokemon(1,1,2).
-jml_inventory(1).
-curr_health(snivy,10).
-curr_health(victini,100).
-curr_health(virizion,100).
-
-
+jml_inventory(5).
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */

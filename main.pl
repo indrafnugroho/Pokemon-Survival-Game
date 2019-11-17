@@ -55,14 +55,14 @@ start :-
         end_condition.
 
 /* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
-do(w) :- isSedangBertemuPokemon(Status), Status is 0, atas, moveAllPokemon, map, spawn,  !.
-do(w) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
-do(s) :- isSedangBertemuPokemon(Status), Status is 0, bawah,  moveAllPokemon, map, spawn,  !.
-do(s) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
-do(a) :- isSedangBertemuPokemon(Status), Status is 0, kiri, moveAllPokemon, map, spawn,  !.
-do(a) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
-do(d) :- isSedangBertemuPokemon(Status), Status is 0, kanan, moveAllPokemon, map, spawn, !.
-do(d) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
+do(w) :- isSedangBertemuPokemon(Status), Status == 0, atas, moveAllPokemon, map, spawn,  !.
+do(w) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), !.
+do(s) :- isSedangBertemuPokemon(Status), Status == 0, bawah,  moveAllPokemon, map, spawn,  !.
+do(s) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), !.
+do(a) :- isSedangBertemuPokemon(Status), Status == 0, kiri, moveAllPokemon, map, spawn,  !.
+do(a) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), !.
+do(d) :- isSedangBertemuPokemon(Status), Status == 0, kanan, moveAllPokemon, map, spawn, !.
+do(d) :- isSedangBertemuPokemon(Status), Status == 1, print('Anda tidak bisa melakukan ini'), !.
 
 /* run dan battle hanya bisa dijalanin kalo player lagi ketemu pokemon */
 do(run) :- 
@@ -85,7 +85,6 @@ do(map) :- map,!.
 do(status) :- status,!.
 do(help) :- help,!.
 do(heal) :- heal,!.
-do(capture(X)) :- capture(X),!.
 do(drop(X)) :- drop(X),!.
 
 /* pick(X) gak bisa dijalanin kalo player lagi gak battle */
