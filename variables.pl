@@ -55,6 +55,12 @@ posisiPokemon(10,2,1).
 posisiPokemon(11,2,2).
 posisiPokemon(12,2,3).
 posisiPokemon(13,2,4).
+posisiPokemon(14,3,3).
+posisiPokemon(15,3,4).
+posisiPokemon(16,3,5).
+posisiPokemon(17,3,6).
+posisiPokemon(18,3,7).
+posisiPokemon(19,3,8).
 
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
@@ -107,6 +113,12 @@ health(tympole,100).
 health(cottonee,100).
 health(litwick,100).
 health(heatmor,100).
+health(pidove,100).
+health(woobat,100).
+health(blitzle,100).
+health(emolga,100).
+health(throh,100).
+health(sawk,100).
 health(victini,150).
 health(virizion,150).
 
@@ -122,96 +134,53 @@ damage(_,10).
 superEffective(fire,grass).
 superEffective(water,fire).
 superEffective(grass,water).
+superEffective(electric,flying).
+superEffective(electric,water).
+superEffective(flying,grass).
+superEffective(flying,fighting).
+
 notEffective(grass,grass).
+notEffective(grass,fire).
+notEffective(grass,flying).
 notEffective(fire,fire).
+notEffective(fire,water).
 notEffective(water,water).
+notEffective(water,grass).
+notEffective(electric,grass).
+notEffective(electric,electric).
+notEffective(fighting,flying).
+notEffective(flying,electric).
 
 /* special attack */
 /* skill(X,Y,Z) : X memiliki special attack Y bernilai Z */
-skill(victini,pistol,40).
-skill(virizion,pistol,40).
-skill(tepig,ak47,20).
-skill(oshawott,kemoceng,20).
-skill(pansage,sapuLidi,20).
-skill(pansear,kerikil,20).
-skill(panpour,shotgun,20).
-skill(_,punch,20).
+skill(victini,flameBurst,40).
+skill(virizion,seedBomb,40).
+skill(tepig,ember,20).
+skill(oshawott,waterGun,20).
+skill(snivy,vineWhip,20).
+skill(pansage,vineWhip,20).
+skill(pansear,incinerate,20).
+skill(panpour,waterGun,20).
+skill(darumaka,flameCharge,20).
+skill(basculin,aquaJet,20).
+skill(maractus,needleArm,20).
+skill(tympole,bubbleBeam,20).
+skill(cottonee,razorLeaf,20).
+skill(litwick,fireSpin,20).
+skill(heatmor,fireLash,20).
+skill(pidove,airCutter,20).
+skill(woobat,gust,20).
+skill(blitzle,shockWave,20).
+skill(emolga,spark,20).
+skill(throh,vitalThrow,20).
+skill(sawk,karateChop,20).
 
 isSedangBertemuPokemon(0).
 isBattle(0).
 
 /* Location */
 /* location(A,B,C): C berada di koordinat (A,B) */
-loc(1,1,'Start Point').
-loc(1,2,'Taman Bermain').
-loc(1,3,'Taman Bermain').
-loc(1,4,'Taman Bermain').
-loc(1,5,'Makam Pokemon').
-loc(1,6,'Makam Pokemon').
-loc(1,7,'Stasiun Kereta').
-loc(1,8,'Stasiun Kereta').
-loc(1,9,'ITB').
-loc(1,10,'ITB').
-loc(2,1,'Toilet').
-loc(2,2,'Taman Bermain').
-loc(2,3,'Taman Bermain').
-loc(2,4,'Taman Bermain').
-loc(2,5,'Sekre Asique').
-loc(2,6,'Sekre Asique').
-loc(2,7,'Stasiun Kereta').
-loc(2,8,'Stasiun Kereta').
-loc(2,9,'ITB').
-loc(2,10,'ITB').
-loc(3,1,'ITB').
-loc(3,2,'Tempat yang berbayang-bayang').
-loc(3,3,'Tempat yang berbayang-bayang').
-loc(3,4,'Gym Center').
-loc(3,5,'Rumah Hantu').
-loc(3,6,'Hutan').
-loc(3,7,'Hutan').
-loc(3,8,'Hutan').
-loc(3,9,'Gudang').
-loc(3,10,'Gudang').
-loc(4,1,'Gedung kimia').
-loc(4,2,'Gedung kimia').
-loc(4,3,'Tempat yang terbayang-bayang').
-loc(4,4,'Rumah Hantu').
-loc(4,5,'Rumah Hantu').
-loc(4,6,'Hutan').
-loc(4,7,'Hutan').
-loc(4,8,'Hutan').
-loc(4,9,'Rumah nenek').
-loc(4,10,'Rumah nenek').
-loc(5,1,'Jalan Raya').
-loc(5,2,'Jalan Raya').
-loc(5,3,'Jalan Raya').
-loc(5,4,'Jalan Raya').
-loc(5,5,'Jalan Raya').
-loc(5,6,'Hutan').
-loc(5,7,'Hutan').
-loc(5,8,'Hutan').
-loc(5,9,'Gunung Pokemon').
-loc(5,10,'Gunung Pokemon').
-loc(6,1,'Pantai').
-loc(6,2,'Pantai').
-loc(6,3,'Pantai').
-loc(6,4,'Antartika').
-loc(6,5,'Antartika').
-loc(6,6,'Lapangan Cinta').
-loc(6,7,'Lapangan Cinta').
-loc(6,8,'Lapangan Cinta').
-loc(6,9,'Laboratorium Teknik').
-loc(6,10,'Laboratorium Teknik').
-loc(7,1,'Laboratorium Teknik').
-loc(7,2,'Kandang Domba').
-loc(7,3,'Kandang Domba').
-loc(7,4,'Istana Es').
-loc(7,5,'Istana Es').
-loc(7,6,'Bandara').
-loc(7,7,'Bandara').
-/* NAMBAHIN INI DULU SEMENTARA SUPAYA loc tidak akan mengembalikan 'no' */
-loc(_,_,'undefined'). 
-
+loc(_,_,'Rumput'). 
 
 /* Deadzone */
 deadzone(0,0).
