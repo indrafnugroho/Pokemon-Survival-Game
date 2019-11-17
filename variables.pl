@@ -2,7 +2,6 @@
 :- dynamic(inventory/1).
 :- dynamic(jml_inventory/1).
 :- dynamic(posisiPlayer/2).
-:- dynamic(turnPlayer/1).
 :- dynamic(health/2).
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
@@ -120,9 +119,6 @@ weapon(oshawott,kemoceng).
 weapon(pansage,sapuLidi).
 weapon(pansear,kerikil).
 weapon(panpour,shotgun).
-
-/* Battle */
-turnPlayer(1).
 
 isSedangBertemuPokemon(0).
 isBattle(0).

@@ -1,6 +1,8 @@
 :-include('variables.pl').
 :-include('player.pl').
 
+:- dynamic(turnPlayer/1).
+
 /* ***************** Rules when player meet Pokemon ******************** */
 executeRun/1.
 battle/0.
@@ -17,20 +19,45 @@ executeRun(_) :-
     pilihPokemon.
 
 pilihPokemon :-
+    retract(isBattle(OldStatus)),
     Status is 1,
     asserta(isBattle(Status)),
     write('Pilih Pokemon mu!'),nl.
 
-battle(PokemonPick) :-
+/* Battle */
+turnPlayer(1).
+
+battle :-
+    turnPlayer(TurnStatus),
+    battleNow(TurnStatus),!.
+
+turnPemain :-
+    write('attack'),!.
+
+battleNow(TurnStatus) :-
+    pick(PokemonPick),
     print('I choose you '), print(PokemonPick), nl,
-    /* LANJUTAN: melakukan mekanisme battle (belum selesai) */
+    TurnStatus is 1,
+    turnPemain,
+    retract(turnPlayer(TurnStatus)),
+    NewTurnStatus is 0,
+    asserta(turnPlayer(NewTurnStatus)),
     !.
 
+battleNow(TurnStatus) :-
+    TurnStatus is 0,
+    turnEnemy,
+    retract(turnPlayer(TurnStatus)),
+    NewTurnStatus is 1,
+    asserta(turnPlayer(NewTurnStatus)),
+    !.
+
+turnEnemy :-
+    write('attack enemy'),!.
+
 /* attack mechanism */
-attack :- 
-    battleNow(NamaPokemonFound),
-    retract(health(NamaPokemonFound,H0)),
-    choose(NamaPokemonKita),
-    damage(NamaPokemonKita,D),
-    H1 is H0-D,
-    assert(health(NamaPokemonFound,H1)).
+attack(PokemonSerang,PokemonDiSerang) :- 
+    retract(health(PokemonDiSerang,Health0)),
+    damage(PokemonSerang,Damage),
+    Health1 is Health0-Damage,
+    assert(health(PokemonDiSerang,Health1)).
