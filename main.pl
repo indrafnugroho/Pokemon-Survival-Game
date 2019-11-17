@@ -3,6 +3,7 @@
 :- include('Show_Status.pl').
 :- include('Show_Help.pl').
 :- include('player.pl').
+:- include('attack.pl').
 
 start :-
 	write('                                                   .//`                                           '),nl,
@@ -42,22 +43,64 @@ start :-
 	write('                                      `/syyyyssssooooo++++++++//.                                   '),nl,
 	write('                                         ./osyysssssooooooo+/-`                                     '),nl,
 	write('                                             .-:///+///:-.`                                         '),nl,
+    help,nl,
+    status,nl,
+    map,nl,
     repeat,
 		write('>> '), /* Menandakan input */
-		read(Input),nl, /*Meminta input dari user */
-		do(Input),nl, fail. /* Menjadlankan do(Input) */
+		read(Input), /*Meminta input dari user */
+		do(Input),nl,  /* Menjalankan do(Input) */
+        end_condition(Input).
 
+end_condition(quit).
 
-do(w) :- atas, moveAllPokemon, spawn, !.
-do(s) :- bawah,  moveAllPokemon, spawn, !.
-do(a) :- kiri, moveAllPokemon, spawn, !.
-do(d) :- kanan, moveAllPokemon, spawn, !.
-do(map) :- map.
-do(status) :- status.
-do(help) :- help.
-do(heal(X)) :- heal(X).
-do(heal) :- heal.
-do(capture(X)) :- capture(X).
-do(drop(X)) :- drop(X).
-do(pick(X)) :- pick(X).
+/* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
+do(w) :- isSedangBertemuPokemon(Status), Status is 0, atas, moveAllPokemon, map, spawn,  !.
+do(w) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
+
+do(s) :- isSedangBertemuPokemon(Status), Status is 0, bawah,  moveAllPokemon, map, spawn,  !.
+do(s) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
+
+do(a) :- isSedangBertemuPokemon(Status), Status is 0, kiri, moveAllPokemon, map, spawn,  !.
+do(a) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
+
+do(d) :- isSedangBertemuPokemon(Status), Status is 0, kanan, moveAllPokemon, map, spawn, !.
+do(d) :- isSedangBertemuPokemon(Status), Status is 1, print('Anda tidak bisa melakukan ini'), !.
+
+/* run dan battle hanya bisa dijalanin kalo player lagi ketemu pokemon */
+do(run) :- 
+    isSedangBertemuPokemon(Status), Status is 1,
+    isBattle(StatusBattle), StatusBattle is 0,
+    random(0,2,RandomValue), executeRun(RandomValue),!.
+do(run) :- 
+    isSedangBertemuPokemon(Status), Status is 0,
+    isBattle(StatusBattle), StatusBattle is 1,
+    print('Anda tidak bisa melakukan ini'),!.
+do(battle) :- 
+    isSedangBertemuPokemon(Status), Status is 1,
+    pilihPokemon, !.
+do(battle) :- 
+    isSedangBertemuPokemon(Status), Status is 0,
+    print('Anda tidak bisa melakukan ini'),!.
+
+do(map) :- map,!.
+do(status) :- status,!.
+do(help) :- help,!.
+do(heal) :- heal,!.
+do(capture(X)) :- capture(X),!.
+do(drop(X)) :- drop(X),!.
+
+/* pick(X) gak bisa dijalanin kalo player lagi gak battle */
+do(pick(X)) :- 
+    isBattle(Status), 
+    Status is 1, 
+    pick(X), 
+    battle,!.
+do(pick(X)) :- 
+    isBattle(Status), 
+    Status is 0,
+    print('Kamu tidak sedang bertarung, taruh kembali pokemon mu!'),!. 
+
+do(quit).
+do(_) :- print('Masukkan Anda salah'),!.
 do(fail) :- fail.

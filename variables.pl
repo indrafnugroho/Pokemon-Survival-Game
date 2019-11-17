@@ -2,17 +2,16 @@
 :- dynamic(inventory/1).
 :- dynamic(jml_inventory/1).
 :- dynamic(posisiPlayer/2).
-:- dynamic(turnPlayer/1).
 :- dynamic(health/2).
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
 :- dynamic(battleNow/1).
-:- dynamic(currHealth/2).
+:- dynamic(curr_health/2).
+:- dynamic(isSedangBertemuPokemon/1).
+:- dynamic(isBattle/1).
 
 /* static variable*/
-
 /* Pemain */
-
 /* Map */
 pagar(1,2).
 pagar(4,5).
@@ -37,10 +36,18 @@ pokemon(11,cottonee).
 pokemon(12,litwick).
 pokemon(13,heatmor).
 
-/* Posisi pokemon */
+/* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
-posisiPokemon(1,1,2).
-posisiPokemon(2,3,4).
+posisiPokemon(4,1,5).
+posisiPokemon(5,1,6).
+posisiPokemon(6,1,7).
+posisiPokemon(7,1,8).
+posisiPokemon(8,1,9).
+posisiPokemon(9,1,10).
+posisiPokemon(10,2,1).
+posisiPokemon(11,2,2).
+posisiPokemon(12,2,3).
+posisiPokemon(13,2,4).
 
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
@@ -86,31 +93,38 @@ health(tympole,100).
 health(cottonee,100).
 health(litwick,100).
 health(heatmor,100).
-health(victini,10000).
-health(virizion,101001).
+health(victini,150).
+health(virizion,150).
 
 /* Damage */
 /* damage(X,Y) : X memiliki damage sebesar Y */
-damage(victini,135182).
-damage(virizion,182135).
+damage(victini,30).
+damage(virizion,30).
+damage(_,10).
 
 /* modifier */
-/* modifier(X,Y) : X is super effective against Y */
-modifier(fire,grass).
-modifier(water,fire).
-modifier(grass,water).
+/* superEffective(T1,T2) : T1 is super effective against T2 */
+/* notEffective(T1,T2) : T1 is not too effective against T2*/
+superEffective(fire,grass).
+superEffective(water,fire).
+superEffective(grass,water).
+notEffective(grass,grass).
+notEffective(fire,fire).
+notEffective(water,water).
 
 /* special attack */
-/* weapon(X,Y) : X memiliki special attack Y */
-weapon(victini,pistol).
-weapon(tepig,ak47).
-weapon(oshawott,kemoceng).
-weapon(pansage,sapuLidi).
-weapon(pansear,kerikil).
-weapon(panpour,shotgun).
+/* skill(X,Y,Z) : X memiliki special attack Y bernilai Z */
+skill(victini,pistol,40).
+skill(virizion,pistol,40).
+skill(tepig,ak47,20).
+skill(oshawott,kemoceng,20).
+skill(pansage,sapuLidi,20).
+skill(pansear,kerikil,20).
+skill(panpour,shotgun,20).
+skill(_,punch,20).
 
-/* Battle */
-turnPlayer(1).
+isSedangBertemuPokemon(0).
+isBattle(0).
 
 /* Location */
 /* location(A,B,C): C berada di koordinat (A,B) */
@@ -181,6 +195,8 @@ loc(7,4,'Istana Es').
 loc(7,5,'Istana Es').
 loc(7,6,'Bandara').
 loc(7,7,'Bandara').
+/* NAMBAHIN INI DULU SEMENTARA SUPAYA loc tidak akan mengembalikan 'no' */
+loc(_,_,'undefined'). 
 
 
 /* Deadzone */

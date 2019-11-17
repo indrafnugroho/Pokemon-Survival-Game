@@ -12,7 +12,7 @@ showStatusList([]).
 showStatusList(L) :-
     L = [H|T],
     write(H),nl,
-    currHealth(H,Y),
+    curr_health(H,Y),
     write('Health:'),
     write(Y),nl,
     type(Z,H),

@@ -5,11 +5,12 @@
 inventory(snivy).
 inventory(pansage).
 posisiPlayer(1,2).
-jml_inventory(0).
-currHealth(snivy,10).
-currHealth(pansage,20).
-currHealth(victini,10000).
-currHealth(virizion,101001).
+posisiPokemon(1,1,2).
+jml_inventory(2).
+curr_health(snivy,10).
+curr_health(pansage,20).
+curr_health(victini,10000).
+curr_health(virizion,101001).
 
 
 /* Inventory */
@@ -60,8 +61,8 @@ healX(X) :-
     gym(A,B),
     health(X,HH),
     Z is HH,
-    retract(currHealth(X,H)),
-    asserta(currHealth(X,Z)),!.
+    retract(curr_health(X,H)),
+    asserta(curr_health(X,Z)),!.
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
     inventory(X),
