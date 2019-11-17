@@ -5,7 +5,7 @@ map/0.
 /* Posisi player */
 printMap(X,Y) :- posisiPlayer(X,Y), !,  write('P '), Y1 is Y+1, printMap(X,Y1), !.
 /* UNTUK DEBUG: nampilin posisi pokemon */
-% printMap(X,Y) :- posisiPokemon(_,X,Y), !,  write('O '), Y1 is Y+1, printMap(X,Y1), !.
+printMap(X,Y) :- posisiPokemon(_,X,Y), !,  write('O '), Y1 is Y+1, printMap(X,Y1), !.
 /* pagar dan gym */
 printMap(X,Y) :- gym(X,Y), !,  write('G '), Y1 is Y+1, printMap(X,Y1), !.
 printMap(X,Y) :- pagar(X,Y), !,  write('X '), Y1 is Y+1, printMap(X,Y1), !.
@@ -45,6 +45,13 @@ kiri :-  posisiPlayer(X,Y), Y\=1, Y1 is Y-1, pagar(X,Y1),write('Tidak bisa kekir
 kiri :- posisiPlayer(_,Y), Y==1, write('Tidak bisa kekiri, pager cuy'),nl, !. 
 
 /* pokemon movement */
+
+
+movePokemon(ID) :-
+    random(1,11,Xnew),
+    random(1,11,Ynew),
+    gym(Xnew,Ynew).
+
 movePokemon(ID) :-
     random(1,11,Xnew),
     random(1,11,Ynew),
@@ -52,22 +59,10 @@ movePokemon(ID) :-
     % \+posisiPokemon(_,Xnew,Ynew),
     \+gym(Xnew,Ynew),
     pokemon(ID,Nama),
-    \+legendary(Nama),
     posisiPokemon(ID,X,Y),
     retract(posisiPokemon(ID,X,Y)),
-    asserta(posisiPokemon(ID,Xnew,Ynew)),!.
+    asserta(posisiPokemon(ID,Xnew,Ynew)).
 
-movePokemon(ID) :-
-    random(1,11,Xnew),
-    random(1,11,Ynew),
-    gym(Xnew,Ynew),!.
-
-movePokemon(ID) :-
-    random(1,11,Xnew),
-    random(1,11,Ynew),
-    posisiPokemon(ID,X,Y),
-    pokemon(ID,Nama),
-    legendary(Nama),!.
 
 moveAllPokemon :-
     findall(ID,posisiPokemon(ID,_,_),ListPokemon),
@@ -133,4 +128,4 @@ cekGym:-
     posisiPlayer(X,Y),
     gym(X,Y),
     write('Kamu berada di gym, ketik heal untuk mengeheal semua pokemon kamu'), nl,
-    retract(gym(X,Y)), !.
+    retract(gym(X,Y)),!.
