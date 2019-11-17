@@ -1,5 +1,6 @@
 /* dynamic variable */
 :- dynamic(inventory/1).
+:- dynamic(totalLegendary/1).
 :- dynamic(jml_inventory/1).
 :- dynamic(posisiPlayer/2).
 :- dynamic(health/2).
@@ -79,6 +80,7 @@ starter(oshawott).
 /* Legendary */
 legendary(victini).
 legendary(virizion).
+totalLegendary(2).
 
 /* Health pokemon */
 /* health(X,Y) : X memiliki health sebesar Y */
@@ -95,29 +97,35 @@ health(tympole,100).
 health(cottonee,100).
 health(litwick,100).
 health(heatmor,100).
-health(victini,10000).
-health(virizion,101001).
+health(victini,150).
+health(virizion,150).
 
 /* Damage */
 /* damage(X,Y) : X memiliki damage sebesar Y */
-damage(victini,135182).
-damage(virizion,182135).
-damage(_,100).
+damage(victini,30).
+damage(virizion,30).
+damage(_,10).
 
 /* modifier */
-/* modifier(X,Y) : X is super effective against Y */
-modifier(fire,grass).
-modifier(water,fire).
-modifier(grass,water).
+/* superEffective(T1,T2) : T1 is super effective against T2 */
+/* notEffective(T1,T2) : T1 is not too effective against T2*/
+superEffective(fire,grass).
+superEffective(water,fire).
+superEffective(grass,water).
+notEffective(grass,grass).
+notEffective(fire,fire).
+notEffective(water,water).
 
 /* special attack */
-/* weapon(X,Y) : X memiliki special attack Y */
-weapon(victini,pistol).
-weapon(tepig,ak47).
-weapon(oshawott,kemoceng).
-weapon(pansage,sapuLidi).
-weapon(pansear,kerikil).
-weapon(panpour,shotgun).
+/* skill(X,Y,Z) : X memiliki special attack Y bernilai Z */
+skill(victini,pistol,40).
+skill(virizion,pistol,40).
+skill(tepig,ak47,20).
+skill(oshawott,kemoceng,20).
+skill(pansage,sapuLidi,20).
+skill(pansear,kerikil,20).
+skill(panpour,shotgun,20).
+skill(_,punch,20).
 
 isSedangBertemuPokemon(0).
 isBattle(0).
