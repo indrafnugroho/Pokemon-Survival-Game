@@ -110,6 +110,7 @@ health(heatmor,100).
 health(victini,150).
 health(virizion,150).
 
+
 /* Damage */
 /* damage(X,Y) : X memiliki damage sebesar Y */
 damage(victini,30).

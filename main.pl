@@ -3,6 +3,7 @@
 :- include('Show_Status.pl').
 :- include('Show_Help.pl').
 :- include('player.pl').
+:- include('battle.pl').
 :- include('attack.pl').
 
 start :-
@@ -73,7 +74,8 @@ do(run) :-
     print('Anda tidak bisa melakukan ini'),!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 1,
-    pilihPokemon, !.
+    pilihPokemon, 
+    !.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 0,
     print('Anda tidak bisa melakukan ini'),!.
@@ -100,6 +102,10 @@ do(quit) :-
 	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,!.
 	write('>> '),read(X),end(X),!.
 
+do(_) :- print('Masukkan Anda salah'),!.
+do(fail) :- fail.
+
+
 end(n) :-
 	write('Lanjutkan petualanganmu!'),nl,!.
 end(y) :- halt,!.
@@ -112,6 +118,3 @@ end_condition :-
   	totalLegendary(0), !,
   	write('Aril: Congratulation!!! You have helped me in defeating or capturing the 2 Legendary Pokemons.'),nl,
  	write('As promised, I won’t kill you and you’re free!'),nl,end(y),!.
-
-do(_) :- print('Masukkan Anda salah'),!.
-do(fail) :- fail.

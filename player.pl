@@ -3,7 +3,6 @@
 inventory(snivy).
 posisiPlayer(1,2).
 jml_inventory(1).
-curr_health(snivy,10).
 
 /* Inventory */
 /* add_inv(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */

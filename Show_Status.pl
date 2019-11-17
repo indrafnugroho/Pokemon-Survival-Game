@@ -19,4 +19,3 @@ showStatusList(L) :-
     write('Tipe:'),
     write(Z),nl,nl,
     showStatusList(T),!.
-    
