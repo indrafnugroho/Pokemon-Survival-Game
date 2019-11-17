@@ -6,7 +6,6 @@
 :- dynamic(health/2).
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
-:- dynamic(battleNow/1).
 :- dynamic(curr_health/2).
 :- dynamic(isSedangBertemuPokemon/1).
 :- dynamic(isBattle/1).
@@ -45,6 +44,9 @@ pokemon(19,sawk).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
+% posisiPokemon(1,1,2).
+% posisiPokemon(2,1,3).
+% posisiPokemon(3,1,4).
 posisiPokemon(4,1,5).
 posisiPokemon(5,1,6).
 posisiPokemon(6,1,7).
