@@ -38,9 +38,6 @@ pokemon(13,heatmor).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
-posisiPokemon(1,1,2).
-posisiPokemon(2,1,3).
-posisiPokemon(3,1,4).
 posisiPokemon(4,1,5).
 posisiPokemon(5,1,6).
 posisiPokemon(6,1,7).
@@ -96,29 +93,35 @@ health(tympole,100).
 health(cottonee,100).
 health(litwick,100).
 health(heatmor,100).
-health(victini,10000).
-health(virizion,101001).
+health(victini,150).
+health(virizion,150).
 
 /* Damage */
 /* damage(X,Y) : X memiliki damage sebesar Y */
-damage(victini,135182).
-damage(virizion,182135).
-damage(_,100).
+damage(victini,30).
+damage(virizion,30).
+damage(_,10).
 
 /* modifier */
-/* modifier(X,Y) : X is super effective against Y */
-modifier(fire,grass).
-modifier(water,fire).
-modifier(grass,water).
+/* superEffective(T1,T2) : T1 is super effective against T2 */
+/* notEffective(T1,T2) : T1 is not too effective against T2*/
+superEffective(fire,grass).
+superEffective(water,fire).
+superEffective(grass,water).
+notEffective(grass,grass).
+notEffective(fire,fire).
+notEffective(water,water).
 
 /* special attack */
-/* weapon(X,Y) : X memiliki special attack Y */
-weapon(victini,pistol).
-weapon(tepig,ak47).
-weapon(oshawott,kemoceng).
-weapon(pansage,sapuLidi).
-weapon(pansear,kerikil).
-weapon(panpour,shotgun).
+/* skill(X,Y,Z) : X memiliki special attack Y bernilai Z */
+skill(victini,pistol,40).
+skill(virizion,pistol,40).
+skill(tepig,ak47,20).
+skill(oshawott,kemoceng,20).
+skill(pansage,sapuLidi,20).
+skill(pansear,kerikil,20).
+skill(panpour,shotgun,20).
+skill(_,punch,20).
 
 isSedangBertemuPokemon(0).
 isBattle(0).
