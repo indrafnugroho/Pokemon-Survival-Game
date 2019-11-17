@@ -21,7 +21,7 @@ do_attack(PokemonSerang,PokemonDiSerang) :-
     NewDamage is Damage + Damage*0.5,
     Health1 is Health0-NewDamage,
     assert(curr_health(PokemonDiSerang,Health1)),
-    nl,print(PokemonSerang),print(' dealt '),print(Damge),print(' to PokemonDiSerang'),
+    nl,print(PokemonSerang),print(' dealt '),print(Damage),print(' to PokemonDiSerang'),
     !.
 
 do_attack(PokemonSerang,PokemonDiSerang) :- 

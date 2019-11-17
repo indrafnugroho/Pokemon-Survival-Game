@@ -92,7 +92,7 @@ do(pick(X)) :-
     isBattle(Status), 
     Status is 1, 
     pick(X), 
-    battle,!.
+    battle(X),!.
 do(pick(X)) :- 
     isBattle(Status), 
     Status is 0,

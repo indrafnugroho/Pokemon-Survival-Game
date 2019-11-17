@@ -4,6 +4,11 @@
 /* Pemain */
 /* Kondisi awal pemain */
 inventory(snivy).
+inventory(pansear).
+inventory(panpour).
+inventory(emolga).
+inventory(pidove).
+inventory(throh).
 posisiPlayer(1,2).
 posisiPokemon(1,1,2).
 jml_inventory(1).
