@@ -14,7 +14,7 @@ executeRun(RandomValue) :-
     asserta(isSedangBertemuPokemon(0)),!.
 
 executeRun(_) :-
-    print("You can't run"),nl,    
+    print('You can\'t run'),nl,    
     pilihPokemon.
 
 pilihPokemon :-
