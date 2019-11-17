@@ -154,6 +154,12 @@ capture(X) :-
     asserta(jml_inventory(N1)),
     asserta(inventory(X)),!.
 
+capture(X) :-
+    jml_inventory(N),
+    N1 is N+1,
+    N1 > 6,
+    write('Inventory penuh, drop pokemon anda dulu'), nl, !.
+
 /* drop(X) : Menghapus pokemon X dari inventory */
 drop(M) :- 
     no_inventory(M,X),
@@ -185,7 +191,10 @@ healX(X) :-
     health(X,HH),
     Z is HH,
     retract(curr_health(X,H)),
-    asserta(curr_health(X,Z)),!.
+    asserta(curr_health(X,Z)),
+    write('Health '),
+    write(X),
+    write('menjadi maksimal'),nl,!.
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
     inventory(X),
