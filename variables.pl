@@ -6,6 +6,7 @@
 :- dynamic(health/2).
 :- dynamic(damage/2).
 :- dynamic(posisiPokemon/3).
+:- dynamic(battleNow/1).
 :- dynamic(curr_health/2).
 :- dynamic(isSedangBertemuPokemon/1).
 :- dynamic(isBattle/1).
@@ -35,12 +36,15 @@ pokemon(10,tympole).
 pokemon(11,cottonee).
 pokemon(12,litwick).
 pokemon(13,heatmor).
+pokemon(14,pidove).
+pokemon(15,woobat).
+pokemon(16,blitzle).
+pokemon(17,emolga).
+pokemon(18,throh).
+pokemon(19,sawk).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
-% posisiPokemon(1,1,2).
-% posisiPokemon(2,1,3).
-% posisiPokemon(3,1,4).
 posisiPokemon(4,1,5).
 posisiPokemon(5,1,6).
 posisiPokemon(6,1,7).
@@ -69,6 +73,12 @@ type(fire,litwick).
 type(fire,heatmor).
 type(grass,virizion).
 type(fire,victini).
+type(flying,pidove).
+type(flying,woobat).
+type(electric,blitzle).
+type(electric,emolga).
+type(fighting,throh).
+type(fighting,sawk).
 
 /* Starter Pokemon */
 /* pokemon ini tidak dapat 'berkeliaran' di rumput.

@@ -1,4 +1,4 @@
-:-include('variables.pl').
+:- dynamic(turnPlayer/1).
 
 /* ***************** Rules when player meet Pokemon ******************** */
 executeRun/1.
@@ -50,37 +50,37 @@ battleNow(TurnStatus) :-
     !.
 
 /* attack mechanism */
-% attack(PokemonSerang,PokemonDiSerang) :- 
-%     retract(curr_health(PokemonDiSerang,Health0)),
-%     damage(PokemonSerang,Damage),
-%     type(PokemonSerang,T1),
-%     type(PokemonDiSerang,T2),
-%     \x superEffective(T1,T2),
-%     \x notEffective(T1,T2),
-%     Health1 is Health0-Damage,
-%     assert(health(PokemonDiSerang,Health1)),!.
+attack(PokemonSerang,PokemonDiSerang) :- 
+    retract(curr_health(PokemonDiSerang,Health0)),
+    damage(PokemonSerang,Damage),
+    type(T1,PokemonSerang),
+    type(T2,PokemonDiSerang),
+    \xsuperEffective(T1,T2),
+    \xnotEffective(T1,T2),
+    Health1 is Health0-Damage,
+    assert(health(PokemonDiSerang,Health1)),!.
 
-% attack(PokemonSerang,PokemonDiSerang) :- 
-%     retract(curr_health(PokemonDiSerang,Health0)),
-%     damage(PokemonSerang,Damage),
-%     type(PokemonSerang,T1),
-%     type(PokemonDiSerang,T2),
-%     superEffective(T1,T2),
-%     \x notEffective(T1,T2),
-%     NewDamage is Damage + Damage*0.5,
-%     Health1 is Health0-NewDamage,
-%     assert(health(PokemonDiSerang,Health1)),!.
+attack(PokemonSerang,PokemonDiSerang) :- 
+    retract(curr_health(PokemonDiSerang,Health0)),
+    damage(PokemonSerang,Damage),
+    type(T1,PokemonSerang),
+    type(T2,PokemonDiSerang),
+    superEffective(T1,T2),
+    \xnotEffective(T1,T2),
+    NewDamage is Damage + Damage*0.5,
+    Health1 is Health0-NewDamage,
+    assert(health(PokemonDiSerang,Health1)),!.
 
-% attack(PokemonSerang,PokemonDiSerang) :- 
-%     retract(curr_health(PokemonDiSerang,Health0)),
-%     damage(PokemonSerang,Damage),
-%     type(PokemonSerang,T1),
-%     type(PokemonDiSerang,T2),
-%     \x superEffective(T1,T2),
-%     notEffective(T1,T2),
-%     NewDamage is Damage - Damage*0.5,
-%     Health1 is Health0-NewDamage,
-%     assert(health(PokemonDiSerang,Health1)),!.
+attack(PokemonSerang,PokemonDiSerang) :- 
+    retract(curr_health(PokemonDiSerang,Health0)),
+    damage(PokemonSerang,Damage),
+    type(T1,PokemonSerang),
+    type(T2,PokemonDiSerang),
+    \xsuperEffective(T1,T2),
+    notEffective(T1,T2),
+    NewDamage is Damage - Damage*0.5,
+    Health1 is Health0-NewDamage,
+    assert(health(PokemonDiSerang,Health1)),!.
 
 battle :-
     /* battle akan akan terus bergirilir sampai kondisi StatusSelesai bernilai 1 */
@@ -99,36 +99,37 @@ turnEnemy :-
     retract(isBattleSelesai(OldStatusSelesai)),
     1 is NewStatusSelesai,
     asserta(isBattleSelesai(NewStatusSelesai)),
-    asserta(health(PokemonDiSerang,Health1)),!.
+    !.
+    assert(health(PokemonDiSerang,Health1)),!.
 
-% specialAttack(PokemonSerang,PokemonDiSerang) :- 
-%     retract(curr_health(PokemonDiSerang,Health0)),
-%     skill(PokemonSerang,Skill,Damage),
-%     type(PokemonSerang,T1),
-%     type(PokemonDiSerang,T2),
-%     \x superEffective(T1,T2),
-%     \x notEffective(T1,T2),
-%     Health1 is Health0-Damage,
-%     assert(health(PokemonDiSerang,Health1)).
+specialAttack(PokemonSerang,PokemonDiSerang) :- 
+    retract(curr_health(PokemonDiSerang,Health0)),
+    skill(PokemonSerang,Skill,Damage),
+    type(T1,PokemonSerang),
+    type(T2,PokemonDiSerang),
+    \xsuperEffective(T1,T2),
+    \xnotEffective(T1,T2),
+    Health1 is Health0-Damage,
+    assert(health(PokemonDiSerang,Health1)).
 
-% specialAttack(PokemonSerang,PokemonDiSerang) :- 
-%     retract(curr_health(PokemonDiSerang,Health0)),
-%     skill(PokemonSerang,Skill,Damage),
-%     type(PokemonSerang,T1),
-%     type(PokemonDiSerang,T2),
-%     superEffective(T1,T2),
-%     \x notEffective(T1,T2),
-%     NewDamage is Damage + Damage*0.5,
-%     Health1 is Health0-NewDamage,
-%     assert(health(PokemonDiSerang,Health1)),!.
+specialAttack(PokemonSerang,PokemonDiSerang) :- 
+    retract(curr_health(PokemonDiSerang,Health0)),
+    skill(PokemonSerang,Skill,Damage),
+    type(T1,PokemonSerang),
+    type(T2,PokemonDiSerang),
+    superEffective(T1,T2),
+    \xnotEffective(T1,T2),
+    NewDamage is Damage + Damage*0.5,
+    Health1 is Health0-NewDamage,
+    assert(health(PokemonDiSerang,Health1)),!.
 
-% specialAttack(PokemonSerang,PokemonDiSerang) :- 
-%     retract(curr_health(PokemonDiSerang,Health0)),
-%     skill(PokemonSerang,Skill,Damage),
-%     type(PokemonSerang,T1),
-%     type(PokemonDiSerang,T2),
-%     \x superEffective(T1,T2),
-%     notEffective(T1,T2),
-%     NewDamage is Damage - Damage*0.5,
-%     Health1 is Health0-NewDamage,
-%     assert(health(PokemonDiSerang,Health1)),!.
+specialAttack(PokemonSerang,PokemonDiSerang) :- 
+    retract(curr_health(PokemonDiSerang,Health0)),
+    skill(PokemonSerang,Skill,Damage),
+    type(T1,PokemonSerang),
+    type(T2,PokemonDiSerang),
+    \xsuperEffective(T1,T2),
+    notEffective(T1,T2),
+    NewDamage is Damage - Damage*0.5,
+    Health1 is Health0-NewDamage,
+    assert(health(PokemonDiSerang,Health1)),!.

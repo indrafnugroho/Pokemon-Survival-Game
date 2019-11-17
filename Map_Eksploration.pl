@@ -1,5 +1,3 @@
-:-include('player.pl').
-
 /* ***** PRINT MAP ***** */
 printMap/2.
 printInfoLokasi/0.

@@ -1,11 +1,8 @@
-:- include('variables.pl').
-
 /* Pemain */
 /* Kondisi awal pemain */
 inventory(snivy).
-inventory(pansage).
 posisiPlayer(1,2).
-jml_inventory(0).
+jml_inventory(1).
 curr_health(snivy,10).
 
 /* Inventory */
