@@ -32,7 +32,7 @@ no_inventory(3,panpour).
 no_inventory(4,emolga).
 no_inventory(5,pidove).
 % no_inventory(6,throh).
-posisiPlayer(1,2).
+posisiPlayer(1,1).
 posisiPokemon(1,1,2).
 jml_inventory(5).
 

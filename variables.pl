@@ -10,11 +10,12 @@
 :- dynamic(curr_health/2).
 :- dynamic(isSedangBertemuPokemon/1).
 :- dynamic(isBattle/1).
+:- dynamic(gym/2).
 
 /* static variable*/
 /* Pemain */
 /* Map */
-pagar(1,2).
+pagar(1,5).
 pagar(4,5).
 pagar(6,7).
 gym(1,2).
