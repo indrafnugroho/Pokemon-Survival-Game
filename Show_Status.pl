@@ -1,3 +1,4 @@
+
 /* STATUS */
 status :-
     write('Your Pokemon:'), nl,
@@ -19,3 +20,4 @@ showStatusList(L) :-
     write('Tipe:'),
     write(Z),nl,nl,
     showStatusList(T),!.
+
