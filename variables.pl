@@ -1,5 +1,6 @@
 /* dynamic variable */
 :- dynamic(inventory/1).
+:- dynamic(totalLegendary/1).
 :- dynamic(jml_inventory/1).
 :- dynamic(posisiPlayer/2).
 :- dynamic(health/2).
@@ -77,6 +78,7 @@ starter(oshawott).
 /* Legendary */
 legendary(victini).
 legendary(virizion).
+totalLegendary(2).
 
 /* Health pokemon */
 /* health(X,Y) : X memiliki health sebesar Y */
