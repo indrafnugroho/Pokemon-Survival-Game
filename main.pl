@@ -50,9 +50,7 @@ start :-
 		write('>> '), /* Menandakan input */
 		read(Input), /*Meminta input dari user */
 		do(Input),nl,  /* Menjalankan do(Input) */
-        end_condition(Input).
-
-end_condition(quit).
+        end_condition.
 
 /* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
 do(w) :- isSedangBertemuPokemon(Status), Status is 0, atas, moveAllPokemon, map, spawn,  !.
@@ -101,6 +99,24 @@ do(pick(X)) :-
     Status is 0,
     print('Kamu tidak sedang bertarung, taruh kembali pokemon mu!'),!. 
 
-do(quit).
+do(quit) :- 
+	write('Apakah Anda yakin ingin meninggalkan permainan? [y/n]'),nl,
+	write('>> '),read(X),end(X),!.
+
 do(_) :- print('Masukkan Anda salah'),!.
 do(fail) :- fail.
+
+end(n) :-
+	write('Lanjutkan petualanganmu!'),nl,!.
+
+end(y) :- halt,!.
+
+end_condition :-
+	jml_inventory(0),!,
+	write('Aril: Ho ho ho. You have failed to complete the missions.'),nl,
+	write('As for now, meet your fate and disappear from this world!'),nl,end(y),!.
+
+end_condition :-
+  	totalLegendary(0), !,
+  	write('Aril: Congratulation!!! You have helped me in defeating or capturing the 2 Legendary Pokemons.'),nl,
+ 	write('As promised, I won’t kill you and you’re free!'),nl,end(y),!.

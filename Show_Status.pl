@@ -1,3 +1,4 @@
+
 /* STATUS */
 status :-
     write('Your Pokemon:'), nl,
@@ -12,11 +13,10 @@ showStatusList([]).
 showStatusList(L) :-
     L = [H|T],
     write(H),nl,
-    curr_health(H,Y),
+    health(H,Y),
     write('Health:'),
     write(Y),nl,
     type(Z,H),
     write('Tipe:'),
     write(Z),nl,nl,
     showStatusList(T),!.
-    

@@ -1,16 +1,13 @@
 :- include('variables.pl').
 
+
 /* Pemain */
 /* Kondisi awal pemain */
 inventory(snivy).
-inventory(pansage).
 posisiPlayer(1,2).
 posisiPokemon(1,1,2).
-jml_inventory(2).
-curr_health(snivy,10).
-curr_health(pansage,20).
-curr_health(victini,10000).
-curr_health(virizion,101001).
+jml_inventory(1).
+
 
 
 /* Inventory */
