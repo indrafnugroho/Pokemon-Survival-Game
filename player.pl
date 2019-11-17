@@ -1,6 +1,8 @@
+:- include('variables.pl').
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
 :- dynamic(no_inventory/2).
+:- dynamic(curr_health/2).
 :-dynamic(isSkillUsed_Self/2).
 
 idAv([6]).
@@ -151,7 +153,7 @@ capture(X) :-
     idAv(List),
     isExist(List,6),
     asserta(no_inventory(6,X)),
-    del_id(List,6,Z),
+    del_id(List,6,Z),    
     retract(idAv(List)),
     asserta(idAv(Z)),
     jml_inventory(N),
@@ -174,8 +176,9 @@ drop(M) :-
     inventory(X),
     idAv(List),
     add_id(List,M,List2),
+    sort(List2,SortedList),
     retract(idAv(List)),
-    asserta(idAv(List2)),
+    asserta(idAv(SortedList)),
     jml_inventory(N),
     N1 is N-1,
     retract(jml_inventory(N)),
@@ -192,19 +195,22 @@ pick(N) :-
 /* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
 healX(X) :-  
     pokemon(Y,X),
+    no_inventory(M,X),
     inventory(X),
     posisiPlayer(A,B),
     gym(A,B),
+    curr_health(M,H),
     health(X,HH),
     Z is HH,
-    retract(curr_health(X,H)),
-    asserta(curr_health(X,Z)),
-    write('Health '),
+    retract(curr_health(M,H)),
+    asserta(curr_health(M,Z)),
+    write('Selamat! Health '),
     write(X),
-    write('menjadi maksimal'),nl,!.
+    write(' menjadi maksimal'),nl,!.
+
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
-    inventory(X),
+    !,inventory(X),
     pokemon(Y,X),
     healX(X).
 
