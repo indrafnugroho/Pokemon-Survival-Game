@@ -8,33 +8,33 @@ idAv([6]).
 /* Pemain */
 /* Kondisi awal pemain */
 inventory(snivy).
-inventory(pansear).
-inventory(panpour).
-inventory(emolga).
-inventory(pidove).
+inventory(pansage).
+% inventory(panpour).
+% inventory(emolga).
+% inventory(pidove).
 % inventory(throh).
 /* Current Health */
 curr_health(1,100).
 curr_health(2,100).
-curr_health(3,100).
-curr_health(4,100).
-curr_health(5,100).
+% curr_health(3,100).
+% curr_health(4,100).
+% curr_health(5,100).
 /* isSkillUsed */
 isSkillUsed_Self(1,0).
 isSkillUsed_Self(2,0).
-isSkillUsed_Self(3,0).
-isSkillUsed_Self(4,0).
-isSkillUsed_Self(5,0).
+% isSkillUsed_Self(3,0).
+% isSkillUsed_Self(4,0).
+% isSkillUsed_Self(5,0).
 
 no_inventory(1,snivy).
-no_inventory(2,pansear).
-no_inventory(3,panpour).
-no_inventory(4,emolga).
-no_inventory(5,pidove).
+no_inventory(2,pansage).
+% no_inventory(3,panpour).
+% no_inventory(4,emolga).
+% no_inventory(5,pidove).
 % no_inventory(6,throh).
 posisiPlayer(1,1).
 posisiPokemon(1,1,2).
-jml_inventory(5).
+jml_inventory(2).
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */

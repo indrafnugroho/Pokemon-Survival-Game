@@ -122,7 +122,9 @@ spawn:-
     % spawnPokemon(ID,X,Y,Hasil),
     % Hasil\=1,
     write('Kamu tidak bertemu pokemon apapun '),  nl, !.
-
+cekGym:-
+    posisiPlayer(X,Y),
+    \+gym(X,Y), !.
 
 cekGym:-
     posisiPlayer(X,Y),

@@ -75,7 +75,8 @@ do(run) :-
     print('Anda tidak bisa melakukan ini'),!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 1,
-    pilihPokemon, 
+    pilihPokemon,
+	asserta(isEnemyAfterBattle(0)),
     !.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 0,
