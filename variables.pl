@@ -45,9 +45,10 @@ pokemon(19,sawk).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
-posisiPokemon(4,1,5).
-posisiPokemon(5,1,6).
-posisiPokemon(6,1,7).
+posisiPokemon(1,1,2).
+posisiPokemon(4,1,2).
+posisiPokemon(5,1,2).
+posisiPokemon(6,1,2).
 posisiPokemon(7,1,8).
 posisiPokemon(8,1,9).
 posisiPokemon(9,1,10).

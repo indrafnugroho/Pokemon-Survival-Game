@@ -47,7 +47,8 @@ start :-
     help,nl,
     status,nl,
     map,nl,
-    repeat,
+
+	repeat,
 		write('>> '), /* Menandakan input */
 		read(Input), /*Meminta input dari user */
 		do(Input),nl,  /* Menjalankan do(Input) */
