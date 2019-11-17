@@ -1,6 +1,7 @@
 :- dynamic(listPoke/1).
 :- dynamic(idAv/1).
 :- dynamic(no_inventory/2).
+:-dynamic(isSkillUsed_Self/2).
 
 idAv([6]).
 
@@ -18,6 +19,12 @@ curr_health(2,100).
 curr_health(3,100).
 curr_health(4,100).
 curr_health(5,100).
+/* isSkillUsed */
+isSkillUsed_Self(1,0).
+isSkillUsed_Self(2,0).
+isSkillUsed_Self(3,0).
+isSkillUsed_Self(4,0).
+isSkillUsed_Self(5,0).
 
 no_inventory(1,snivy).
 no_inventory(2,pansear).
