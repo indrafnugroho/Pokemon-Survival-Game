@@ -16,7 +16,7 @@ executeRun(_) :-
 pilihPokemon :-
     retract(isBattle(_)),
     asserta(isBattle(1)),
-    write('Choose your Pokemon'),nl.
+    write('Pick your Pokemon from inventory! (press: pick(id)) '),nl.
 
 :- dynamic(turnStatus/1).
 
@@ -179,13 +179,13 @@ end_battle(NumP,_PickedPokemon,Enemy) :-
     enemyFaint(Enemy),!.
 
 playerFaint(SelfPokemon) :-
-    write(SelfPokemon), write(' is defeated. Pick another Pokemon in your inventory'),nl,
+    write(SelfPokemon), write(' is defeated. Pick another Pokemon in your inventory (pick(id))'),nl,
     write('>> '),read(Input),
     playerIsDead(Input),!.
 
 enemyFaint(Enemy) :-
     \+legendary(Enemy),
-    write(Enemy), write(' is defeated. What will you do? [capture/move]'),nl,
+    write(Enemy), write(' is defeated. What will you do? [capture/move (press w/a/s/d)]'),nl,
     write('>> '),read(Input),
     enemyIsDead(Input,Enemy),!.
 
@@ -195,7 +195,7 @@ enemyFaint(Enemy) :-
     retract(totalLegendary(N)),
     N1 is N-1,
     asserta(totalLegendary(N1)),
-    write(Enemy), write(' is defeated. What will you do? [capture/move]'),nl,
+    write(Enemy), write(' is defeated. What will you do? [capture/move (press w/a/s/d)]'),nl,
     write('>> '),read(Input),
     enemyIsDead(Input,Enemy),!.
 
