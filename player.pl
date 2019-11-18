@@ -5,39 +5,66 @@
 :- dynamic(isSkillUsed_Self/2).
 :- dynamic(isHeal/1).
 
-idAv([6]).
+idAv([2,3,4,5,6]).
 
 /* Pemain */
 /* Kondisi awal pemain */
-inventory(snivy).
-inventory(pansear).
-inventory(panpour).
-inventory(emolga).
-inventory(pidove).
-inventory(throh).
-/* Current Health */
-curr_health(1,100).
-curr_health(2,100).
-curr_health(3,100).
-curr_health(4,100).
-curr_health(5,100).
-curr_health(6,100).
-/* isSkillUsed */
-isSkillUsed_Self(1,0).
-isSkillUsed_Self(2,0).
-isSkillUsed_Self(3,0).
-isSkillUsed_Self(4,0).
-isSkillUsed_Self(5,0).
-isSkillUsed_Self(6,0).
+chooseStarter :-
+    findall(X,starter(X),ListStarter),
+    writeStarterList(ListStarter),
+    write('Which Pokemon will you choose to be your partner? [choose]'),nl,
+    write('>> '), read(Input),
+    starterToInventory(Input),!.
 
-no_inventory(1,snivy).
-no_inventory(2,pansear).
-no_inventory(3,panpour).
-no_inventory(4,emolga).
-no_inventory(5,pidove).
-no_inventory(6,throh).
+starterToInventory(choose(X)) :- 
+    starter(X),
+    asserta(inventory(X)),
+    health(X,H),
+    asserta(curr_health(1,H)),
+    asserta(isSkillUsed_Self(1,0)),
+    asserta(no_inventory(1,X)),
+    asserta(jml_inventory(1)),
+    write(X), write(' is now your partner!'),nl,!.
+
+writeStarterList([]) :- nl,!.
+writeStarterList([H|T]) :-
+    pokemon(N,H),
+    write(N),
+    write('. '), write(H),nl,
+    type(X,H),
+    write('   Type: '), write(X),nl,
+    writeStarterList(T).
+
+% inventory(snivy).
+% inventory(pansear).
+% inventory(panpour).
+% inventory(emolga).
+% inventory(pidove).
+% inventory(throh).
+/* Current Health */
+% curr_health(1,100).
+% curr_health(2,100).
+% curr_health(3,100).
+% curr_health(4,100).
+% curr_health(5,100).
+% curr_health(6,100).
+/* isSkillUsed */
+% isSkillUsed_Self(1,0).
+% isSkillUsed_Self(2,0).
+% isSkillUsed_Self(3,0).
+% isSkillUsed_Self(4,0).
+% isSkillUsed_Self(5,0).
+% isSkillUsed_Self(6,0).
+
+% no_inventory(1,snivy).
+% no_inventory(2,pansear).
+% no_inventory(3,panpour).
+% no_inventory(4,emolga).
+% no_inventory(5,pidove).
+% no_inventory(6,throh).
+% jml_inventory(6).
+
 posisiPlayer(1,1).
-jml_inventory(6).
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */
@@ -64,128 +91,108 @@ isExist([_H|T],X) :- isExist(T,X),!.
 /* capture(X) : Menangkap pokemon X yang sudah dikalahkan pada suatu lokasi tertentu dan memasukannya ke inventory I sehingga jumlah inventory bertambah 1 */
 /* prekondisi : jml_inventory selalu < 6 */
 capture(X) :-
-    pokemon(Y,X),
-    posisiPlayer(A,B),
-    posisiPokemon(Y,A,B),
     idAv(List),
     isExist(List,1),
     asserta(no_inventory(1,X)),
+    asserta(curr_health(1,100)),
     del_id(List,1,Z),
-    retract(idAv(List)),
+    retract(idAv(_)),
     asserta(idAv(Z)),
-    jml_inventory(N),
-    N1 is N+1,
-    N1 < 7,
     retract(jml_inventory(N)),
+    N1 is N+1,
     asserta(jml_inventory(N1)),
-    asserta(inventory(X)),!.
+    asserta(inventory(X)),
+    asserta(isSkillUsed_Self(1,0)),!.
 
 capture(X) :-
-    pokemon(Y,X),
-    posisiPlayer(A,B),
-    posisiPokemon(Y,A,B),
     idAv(List),
     isExist(List,2),
     asserta(no_inventory(2,X)),
+    asserta(curr_health(2,100)),
     del_id(List,2,Z),
-    retract(idAv(List)),
+    retract(idAv(_)),
     asserta(idAv(Z)),
-    jml_inventory(N),
-    N1 is N+1,
-    N1 < 7,
     retract(jml_inventory(N)),
+    N1 is N+1,
     asserta(jml_inventory(N1)),
-    asserta(inventory(X)),!.
+    asserta(inventory(X)),
+    asserta(isSkillUsed_Self(2,0)),!.
 
 capture(X) :-
-    pokemon(Y,X),
-    posisiPlayer(A,B),
-    posisiPokemon(Y,A,B),
     idAv(List),
     isExist(List,3),
     asserta(no_inventory(3,X)),
+    asserta(curr_health(3,100)),
     del_id(List,3,Z),
-    retract(idAv(List)),
+    retract(idAv(_)),
     asserta(idAv(Z)),
-    jml_inventory(N),
-    N1 is N+1,
-    N1 < 7,
     retract(jml_inventory(N)),
+    N1 is N+1,
     asserta(jml_inventory(N1)),
-    asserta(inventory(X)),!.
+    asserta(inventory(X)),
+    asserta(isSkillUsed_Self(3,0)),!.
 
 capture(X) :-
-    pokemon(Y,X),
-    posisiPlayer(A,B),
-    posisiPokemon(Y,A,B),
     idAv(List),
     isExist(List,4),
     asserta(no_inventory(4,X)),
+    asserta(curr_health(4,100)),
     del_id(List,4,Z),
-    retract(idAv(List)),
+    retract(idAv(_)),
     asserta(idAv(Z)),
-    jml_inventory(N),
-    N1 is N+1,
-    N1 < 7,
     retract(jml_inventory(N)),
+    N1 is N+1,
     asserta(jml_inventory(N1)),
-    asserta(inventory(X)),!.
+    asserta(inventory(X)),
+    asserta(isSkillUsed_Self(4,0)),!.
 
 capture(X) :-
-    pokemon(Y,X),
-    posisiPlayer(A,B),
-    posisiPokemon(Y,A,B),
     idAv(List),
     isExist(List,5),
     asserta(no_inventory(5,X)),
+    asserta(curr_health(5,100)),
     del_id(List,5,Z),
-    retract(idAv(List)),
+    retract(idAv(_)),
     asserta(idAv(Z)),
-    jml_inventory(N),
-    N1 is N+1,
-    N1 < 7,
     retract(jml_inventory(N)),
+    N1 is N+1,
     asserta(jml_inventory(N1)),
-    asserta(inventory(X)),!.
+    asserta(inventory(X)),
+    asserta(isSkillUsed_Self(5,0)),!.
 
 capture(X) :-
-    pokemon(Y,X),
-    posisiPlayer(A,B),
-    posisiPokemon(Y,A,B),
     idAv(List),
     isExist(List,6),
     asserta(no_inventory(6,X)),
-    del_id(List,6,Z),    
-    retract(idAv(List)),
+    asserta(curr_health(6,100)),
+    del_id(List,6,Z),
+    retract(idAv(_)),
     asserta(idAv(Z)),
-    jml_inventory(N),
-    N1 is N+1,
-    N1 < 7,
     retract(jml_inventory(N)),
+    N1 is N+1,
     asserta(jml_inventory(N1)),
-    asserta(inventory(X)),!.
+    asserta(inventory(X)),
+    asserta(isSkillUsed_Self(6,0)),!.
 
 /* drop(X) : Menghapus pokemon X dari inventory */
 drop(M) :- 
     no_inventory(M,X),
-    pokemon(_Y,X),
-    inventory(X),
     idAv(List),
     add_id(List,M,List2),
     sort(List2,SortedList),
-    retract(idAv(List)),
+    retract(idAv(_)),
     asserta(idAv(SortedList)),
-    jml_inventory(N),
-    N1 is N-1,
     retract(jml_inventory(N)),
+    N1 is N-1,
     asserta(jml_inventory(N1)),
     retract(no_inventory(M,X)),
-    retract(inventory(X)),!.
+    retract(inventory(X)),
+    retract(curr_health(M,_)),
+    retract(isSkillUsed_Self(M,_)),!.
 
-/* choose(X) : Pokemon X dipilih dari inventory untuk battle */
+/* pick(N) : Pokemon dengan ID N dipilih dari inventory untuk battle */
 pick(N) :- 
-    no_inventory(N,X),
-    pokemon(_Y,X),!.
+    no_inventory(N,_),!.
 
 /* gym center */
 /* healX(L) : Meningkatkan health pokemon X menjadi maksimal seperti semula */

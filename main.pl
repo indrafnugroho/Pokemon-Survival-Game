@@ -4,6 +4,7 @@
 :- include('Show_Help.pl').
 :- include('player.pl').
 :- include('battle.pl').
+:- include('attack.pl').
 
 start :-
 	write('                                                   .//`                                           '),nl,
@@ -46,8 +47,9 @@ start :-
     write('dr. Shark: Hello!'),nl,
     write('           Welcome to the world of Pokemon!'),nl,
     write('           Your mission is to defeat the legendary Pokemons roaming in this world'),nl,
-    write('           I now give you one of the three Pokemons from my lab to start your adventure'),nl,
-    write('           Good Luck!'),nl,nl,
+    write('           Now, I will give you one of the three Pokemons from my lab to start your adventure'),nl,nl,
+	chooseStarter,nl,
+    write('Good luck! Hope you enjoy your adventure'),nl,nl,
 	help,nl,
     status,nl,
     map,nl,
