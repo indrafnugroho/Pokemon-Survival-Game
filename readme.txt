@@ -22,7 +22,7 @@ Terdapat dua jenis Pokemon yaitu Normal Pokemon dan Legendary Pokemon. Normal Po
 
 Pokemon memiliki atribut-atribut sebagai berikut, yaitu:
 	a.Health : merupakan jumlah nyawa atau hp yang dimiliki Pokemon itu.
-	b.Tipe : terdapat tiga tipe Pokemon (fire, water, leaves).
+	b.Tipe : terdapat enam tipe Pokemon (fire, water, grass, electric, flying, fighting).
 	c.Normal Attack : value of damage dalam angka dari Pokemon yang akan dikerjakan saat Pokemon melakukan normal attack.
 	d.Special Attack atau skill : value of damage dalam angka dari Pokemon yang  akan  dikerjakan  saat  Pokemon  menggunakan skill dan skill ini dapat digunakan hanya sekali dalam tiap pertarungan dengan Pokemon lain. Jumlah skill damage lebih besar dari normal attack. 
 	e. Level (Untuk starter Pokemon)
