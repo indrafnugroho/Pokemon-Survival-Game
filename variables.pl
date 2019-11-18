@@ -43,6 +43,8 @@ pokemon(16,blitzle).
 pokemon(17,emolga).
 pokemon(18,throh).
 pokemon(19,sawk).
+pokemon(20,victini).
+pokemon(21,virizion).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
@@ -62,6 +64,8 @@ posisiPokemon(16,3,5).
 posisiPokemon(17,3,6).
 posisiPokemon(18,3,7).
 posisiPokemon(19,3,8).
+posisiPokemon(20,10,10).
+posisiPokemon(21,10,1).
 
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
