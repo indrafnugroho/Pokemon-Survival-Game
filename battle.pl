@@ -280,8 +280,18 @@ playerIsDead(pick(X)) :-
     pick(X), 
     battle(X),!.
 
-enemyIsDead(w,_Pokemon) :- isSedangBertemuPokemon(Status), Status == 0, atas, moveAllPokemon, map, spawn,  !.
-enemyIsDead(s,_Pokemon) :- isSedangBertemuPokemon(Status), Status == 0, bawah,  moveAllPokemon, map, spawn,  !.
-enemyIsDead(a,_Pokemon) :- isSedangBertemuPokemon(Status), Status == 0, kiri, moveAllPokemon, map, spawn,  !.
-enemyIsDead(d,_Pokemon) :- isSedangBertemuPokemon(Status), Status == 0, kanan, moveAllPokemon, map, spawn, !.
-enemyIsDead(capture,Pokemon) :- capture(Pokemon),!.
+enemyIsDead(w,_) :- isSedangBertemuPokemon(Status), Status == 0, atas, moveAllPokemon, map, spawn,  !.
+enemyIsDead(s,_) :- isSedangBertemuPokemon(Status), Status == 0, bawah,  moveAllPokemon, map, spawn,  !.
+enemyIsDead(a,_) :- isSedangBertemuPokemon(Status), Status == 0, kiri, moveAllPokemon, map, spawn,  !.
+enemyIsDead(d,_) :- isSedangBertemuPokemon(Status), Status == 0, kanan, moveAllPokemon, map, spawn, !.
+enemyIsDead(capture,Pokemon) :- jml_inventory(N),N<6,capture(Pokemon),write(Pokemon),write('is now in your inventory!'),nl,!.
+enemyIsDead(capture,Pokemon) :- 
+    jml_inventory(N), N==6,
+    write('Your inventory is full'),nl,
+    write('Please drop one of your Pokemon'),nl,
+    write('>> '), read(Input),
+    dropDrop(Input,Pokemon),!.
+
+dropDrop(drop(X),Pokemon) :- 
+    drop(X), capture(Pokemon),
+    write(Pokemon), write(' is now in your inventory!'),nl,!.

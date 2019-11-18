@@ -49,7 +49,7 @@ del_id([H|T],H, T).
 del_id([H, H2|T],X, [H|T2]) :-
     del_id([H2|T], X, T2),!.
 
-/* idx_inv(IN,X,IDX) : mengembalikan nilai indeks IDX elemen X dari inventori IN */
+/* idx_inv(IN,X,IDX) : mengembalikan nilai indeks IDX elemen X dari inventory IN */
 idx_inv([H|_T], H, 1).
 idx_inv([_H|T], X, I) :-
     idx_inv(T, X, Z),
@@ -61,6 +61,7 @@ isExist([H|_T],H).
 isExist([_H|T],X) :- isExist(T,X),!.
 
 /* capture(X) : Menangkap pokemon X yang sudah dikalahkan pada suatu lokasi tertentu dan memasukannya ke inventory I sehingga jumlah inventory bertambah 1 */
+/* prekondisi : jml_inventory selalu < 6 */
 capture(X) :-
     pokemon(Y,X),
     posisiPlayer(A,B),
@@ -163,12 +164,6 @@ capture(X) :-
     asserta(jml_inventory(N1)),
     asserta(inventory(X)),!.
 
-capture(_X) :-
-    jml_inventory(N),
-    N1 is N+1,
-    N1 > 6,
-    write('Inventory penuh, drop pokemon Anda dulu'), nl, !.
-
 /* drop(X) : Menghapus pokemon X dari inventory */
 drop(M) :- 
     no_inventory(M,X),
@@ -193,10 +188,9 @@ pick(N) :-
 
 /* gym center */
 /* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
-healX(X) :-  
-    pokemon(_Y,X),
+healX([]) :- write('Your Pokemon are now fully healed'),nl, write('See you next time!'),nl,!.
+healX([X|T]) :-  
     no_inventory(M,X),
-    inventory(X),
     posisiPlayer(A,B),
     gym(A,B),
     curr_health(M,H),
@@ -204,15 +198,12 @@ healX(X) :-
     Z is HH,
     retract(curr_health(M,H)),
     asserta(curr_health(M,Z)),
-    write('Your '),
-    write(X),
-    write(' is fully healed'),nl,!.
+    healX(T),!.
 
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
-    !,inventory(X),
-    pokemon(_Y,X),
-    healX(X).
+    !,findall(X,inventory(X),ListHeal),
+    healX(ListHeal).
 
 % /* fail state */
 % /* fail : jumlah inventory = 0 */
