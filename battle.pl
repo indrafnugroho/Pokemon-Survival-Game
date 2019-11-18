@@ -125,7 +125,6 @@ battle(NumP) :-
     no_inventory(NumP,PickedPokemon),
     write('I choose you '), write(PickedPokemon),write('!'), nl,
     battleNow(Enemy),
-    % enemy_health(Enemy,HEnemy0),
     /* battle akan akan terus bergirilir sampai kondisi StatusSelesai bernilai 1 */
     repeat,
         /* cetak data pokemon lawan */
@@ -144,32 +143,29 @@ battle(NumP) :-
         nl,write(PickedPokemon),nl,
         write('Health: '),write(PickedPokemonHealth),nl,
         write('Type: '),write(TypePickedPokemon),nl,
+        showLevel(PickedPokemon),
 
         turnPlayer(NumP,PickedPokemon,Enemy),
-        end_battle(NumP,PickedPokemon, Enemy).
+        end_battle(NumP,PickedPokemon,Enemy).
 /************************************************************************************************************/
 
 end_battle(NumP,PickedPokemon,_Enemy) :-
     curr_health(NumP,Health),
-    Health =< 0,
+    Health == 0,
     drop(NumP),
     jml_inventory(N), N>0,
-    retract(isSkillUsed_Self(NumP,_)),
-    asserta(isSkillUsed_Self(NumP,0)),
     retract(turnStatus(_)),
     asserta(turnStatus(1)),
     retract(isEnemyAfterBattle(_)),
     asserta(isEnemyAfterBattle(1)),
     playerFaint(PickedPokemon),!.
 
-end_battle(NumP,_PickedPokemon,_Enemy) :-
-    curr_health(NumP,Health),
-    Health =< 0,
+end_battle(_NumP,_PickedPokemon,_Enemy) :-
     jml_inventory(N), N==0,!.
 
-end_battle(NumP,_PickedPokemon,Enemy) :-
+end_battle(NumP,PickedPokemon,Enemy) :-
     enemy_health(Enemy,Health),
-    Health =< 0,
+    Health == 0,
     retract(isSkillUsed_Self(NumP,_)),
     asserta(isSkillUsed_Self(NumP,0)),
     retract(isSedangBertemuPokemon(_)),
@@ -178,20 +174,32 @@ end_battle(NumP,_PickedPokemon,Enemy) :-
     asserta(turnStatus(1)),
     retract(isBattle(_)),
     asserta(isBattle(0)),
-    enemyFaint(Enemy),!.
+    enemyFaint(NumP,PickedPokemon,Enemy),!.
 
 playerFaint(SelfPokemon) :-
     write(SelfPokemon), write(' is defeated. Pick another Pokemon in your inventory'),nl,
     write('>> '),read(Input),
     playerIsDead(Input),!.
 
-enemyFaint(Enemy) :-
+enemyFaint(_,PickedPokemon,Enemy) :-
     \+legendary(Enemy),
-    write(Enemy), write(' is defeated. What will you do? [capture/move]'),nl,
+    \+starter(PickedPokemon),
+    write(Enemy), write(' is defeated. '),
+    write('What will you do? [capture/move]'),nl,
     write('>> '),read(Input),
     enemyIsDead(Input,Enemy),!.
 
-enemyFaint(Enemy) :-
+enemyFaint(NumP,PickedPokemon,Enemy) :-
+    \+legendary(Enemy),
+    starter(PickedPokemon),
+    write(Enemy), write(' is defeated. '),nl,nl,
+    levelUp(PickedPokemon),nl,
+    evolve(NumP,PickedPokemon),nl,
+    write('What will you do? [capture/move]'),nl,
+    write('>> '),read(Input),
+    enemyIsDead(Input,Enemy),!.
+
+enemyFaint(_,_,Enemy) :-
     legendary(Enemy),
     retract(legendary(Enemy)),
     retract(totalLegendary(N)),

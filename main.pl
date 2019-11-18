@@ -81,9 +81,7 @@ do(run) :-
     print('You can\'t do that'),!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 1,
-    pilihPokemon,
-	asserta(isEnemyAfterBattle(0)),
-    !.
+    pilihPokemon,!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 0,
     print('You can\'t do that'),!.
@@ -96,13 +94,14 @@ do(drop(X)) :- drop(X),!.
 
 /* pick(X) gak bisa dijalanin kalo player lagi gak battle */
 do(pick(X)) :- 
+	asserta(isEnemyAfterBattle(0)),
     isBattle(Status), 
-    Status is 1, 
+    Status == 1, 
     pick(X), 
     battle(X),!.
 do(pick(_)) :- 
     isBattle(Status), 
-    Status is 0,
+    Status == 0,
     print('You can\'t do that! You are not in a fight now'),nl,!. 
 
 do(quit) :- 

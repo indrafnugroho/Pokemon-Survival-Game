@@ -18,11 +18,12 @@ showStatusList(L) :-
     write('. '),
     write(H),nl,
     curr_health(N,Y),
-    write('Health:'),
+    write('Health: '),
     write(Y),nl,
     type(Z,H),
-    write('Type:'),
-    write(Z),nl,nl,
+    write('Type: '),
+    write(Z),nl,
+    showLevel(H),nl,
     showStatusList(T),!.
 
 showStatusList(L) :-
@@ -31,9 +32,15 @@ showStatusList(L) :-
     legendary(H),
     write(H),nl,
     health(H,Y),
-    write('Health:'),
+    write('Health: '),
     write(Y),nl,
     type(Z,H),
-    write('Type:'),
+    write('Type: '),
     write(Z),nl,nl,
     showStatusList(T),!.
+
+showLevel(P) :- \+starter(P),!.
+showLevel(P) :-
+    starter(P),
+    level(Lev,P),
+    write('Level: '),write(Lev),nl,!.

@@ -11,6 +11,10 @@
 :- dynamic(curr_health/2).
 :- dynamic(isSedangBertemuPokemon/1).
 :- dynamic(isBattle/1).
+:- dynamic(level/2).
+:- dynamic(damage/2).
+:- dynamic(skill/3).
+:- dynamic(health/2).
 
 /* static variable*/
 /* Pemain */
@@ -25,8 +29,11 @@ gym(8,10).
 /* List pokemon */
 /* pokemon(ID,nama_pokemon) */
 pokemon(1,snivy).
+pokemon(101,servine).
 pokemon(2,tepig).
+pokemon(202,pignite).
 pokemon(3,oshawott).
+pokemon(303,dewott).
 pokemon(4,pansage).
 pokemon(5,pansear).
 pokemon(6,panpour).
@@ -43,6 +50,11 @@ pokemon(16,blitzle).
 pokemon(17,emolga).
 pokemon(18,throh).
 pokemon(19,sawk).
+
+/* level Pokemon */
+level(1,oshawott).
+level(1,tepig).
+level(1,snivy).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
@@ -66,8 +78,11 @@ posisiPokemon(19,3,8).
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
 type(grass,snivy).
+type(grass,servine).
 type(water,oshawott).
+type(water,dewott).
 type(fire,tepig).
+type(fire,pignite).
 type(grass,pansage).
 type(fire,pansear).
 type(water,panpour).
@@ -102,8 +117,11 @@ totalLegendary(2).
 /* Health pokemon */
 /* health(X,Y) : X memiliki health sebesar Y */
 health(snivy,100).
+health(servine,120).
 health(tepig,100).
+health(pignite,120).
 health(oshawott,100).
+health(dewott,120).
 health(pansage,100).
 health(pansear,100).
 health(panpour,100).
@@ -129,6 +147,9 @@ health(virizion,150).
 damage(victini,30).
 damage(virizion,30).
 damage(_,10).
+damage(servine,20).
+damage(pignite,20).
+damage(dewott,20).
 
 /* modifier */
 /* superEffective(T1,T2) : T1 is super effective against T2 */
@@ -158,9 +179,12 @@ notEffective(flying,electric).
 skill(victini,flameBurst,40).
 skill(virizion,seedBomb,40).
 skill(tepig,ember,20).
+skill(pignite,flameThrower,30).
 skill(oshawott,waterGun,20).
+skill(dewott,razorShell,30).
 skill(snivy,vineWhip,20).
-skill(pansage,vineWhip,20).
+skill(servine,leafTornado,30).
+skill(pansage,megaDrain,20).
 skill(pansear,incinerate,20).
 skill(panpour,waterGun,20).
 skill(darumaka,flameCharge,20).

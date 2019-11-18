@@ -35,42 +35,12 @@ writeStarterList([H|T]) :-
     write('   Type: '), write(X),nl,
     writeStarterList(T).
 
-% inventory(snivy).
-% inventory(pansear).
-% inventory(panpour).
-% inventory(emolga).
-% inventory(pidove).
-% inventory(throh).
-/* Current Health */
-% curr_health(1,100).
-% curr_health(2,100).
-% curr_health(3,100).
-% curr_health(4,100).
-% curr_health(5,100).
-% curr_health(6,100).
-/* isSkillUsed */
-% isSkillUsed_Self(1,0).
-% isSkillUsed_Self(2,0).
-% isSkillUsed_Self(3,0).
-% isSkillUsed_Self(4,0).
-% isSkillUsed_Self(5,0).
-% isSkillUsed_Self(6,0).
-
-% no_inventory(1,snivy).
-% no_inventory(2,pansear).
-% no_inventory(3,panpour).
-% no_inventory(4,emolga).
-% no_inventory(5,pidove).
-% no_inventory(6,throh).
-% jml_inventory(6).
-
 posisiPlayer(1,1).
 
 /* Inventory */
 /* add_id(X,Y,Z) : menambahkan pokemon Y ke dalam list inventory X */
 add_id([],X,[X]).
 add_id([Z|T1],X,[Z|T2]):- add_id(T1,X,T2),!.
-
 
 /* del_inv(X,Y,Z) : menghapus pokemon Y dari inventory X */
 del_id([H|T],H, T).
@@ -230,6 +200,47 @@ heal :-
     \+gym(A,B),
     write('You can\'t do that!'),nl,!.
 
-% /* fail state */
-% /* fail : jumlah inventory = 0 */
-% fail :- jml_inventory(0),!.
+levelUp(P) :- \+starter(P),!.
+levelUp(P) :-
+    starter(P),
+    retract(level(Lev,P)),
+    NewLev is Lev+1,
+    asserta(level(NewLev,P)),
+    retract(damage(P,D)),
+    NewD is D+5,
+    asserta(damage(P,NewD)),
+    retract(skill(P,SName,S)),
+    NewS is S+5,
+    asserta(skill(P,SName,NewS)),
+    retract(health(P,H)),
+    NewH is H+10,
+    asserta(health(P,NewH)),
+    write('Your '),write(P),write(' has leveled up!'),nl,
+    write('Health: '), write(NewH),nl,
+    write('Damage: '), write(NewD),nl,
+    write('Skill: '), write(NewS),nl,!.
+
+evolve(_,P) :- \+starter(P).
+evolve(_,P) :- starter(P), level(L,P), L\=3.
+evolve(N,P) :-
+    starter(P),
+    level(L,P), L==3,
+    pokemon(I,P),
+    write('Oh! Your '), write(P), write(' is evolving'),nl,
+    write('.'),nl,
+    write('.'),nl,
+    write('.'),nl,
+    NewI is (I*100 + I),
+    pokemon(NewI,NewP),
+    retract(no_inventory(N,_)),
+    asserta(no_inventory(N,NewP)),
+    health(NewP,NewH),
+    retract(curr_health(N,_)),
+    asserta(curr_health(N,NewH)),
+    write('It evolved into '), write(P),write('!'),nl,
+    write('Health: '), write(NewH),nl,
+    damage(NewP,D),
+    write('Damage: '), write(D),nl, 
+    skill(NewP,SkillName,S),
+    write(NewP), write(' learned '), write(SkillName),nl,
+    write('Skill: '), write(S),nl,!.
