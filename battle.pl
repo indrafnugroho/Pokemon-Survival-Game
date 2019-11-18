@@ -163,8 +163,6 @@ end_battle(NumP,PickedPokemon,_Enemy) :-
     playerFaint(PickedPokemon),!.
 
 end_battle(NumP,_PickedPokemon,_Enemy) :-
-    curr_health(NumP,Health),
-    Health =< 0,
     jml_inventory(N), N==0,!.
 
 end_battle(NumP,_PickedPokemon,Enemy) :-
