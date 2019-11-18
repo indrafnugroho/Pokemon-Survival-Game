@@ -62,7 +62,6 @@ movePokemon(ID) :-
     retract(posisiPokemon(ID,X,Y)),
     asserta(posisiPokemon(ID,Xnew,Ynew)).
 
-
 moveAllPokemon :-
     findall(ID,posisiPokemon(ID,_,_),ListPokemon),
     movePokemonList(ListPokemon).
@@ -115,12 +114,12 @@ spawn:-
     write('Damage   : '), write(DamagePokemon),nl,
     write('Choose: battle or run ?'), nl, !.
 
-spawn:-
+% spawn:-
     % posisiPlayer(X,Y),
     % pokemon(ID,Nama),
     % spawnPokemon(ID,X,Y,Hasil),
     % Hasil\=1,
-    write('No Pokemon here'),  nl, !.
+%    write('No Pokemon here'),  nl, !.
 cekGym:-
     posisiPlayer(X,Y),
     \+gym(X,Y), !.
@@ -128,5 +127,4 @@ cekGym:-
 cekGym:-
     posisiPlayer(X,Y),
     gym(X,Y),
-    write('You are now at a GymCenter, type [heal] to heal all your Pokemon'), nl,
-    retract(gym(X,Y)),!.
+    write('You are now at a GymCenter, type [heal] to heal all your Pokemon'), nl,!.

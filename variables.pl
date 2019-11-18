@@ -11,7 +11,6 @@
 :- dynamic(curr_health/2).
 :- dynamic(isSedangBertemuPokemon/1).
 :- dynamic(isBattle/1).
-:- dynamic(gym/2).
 
 /* static variable*/
 /* Pemain */

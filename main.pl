@@ -59,13 +59,13 @@ start :-
         end_condition.
 
 /* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
-do(w) :- isSedangBertemuPokemon(Status), Status == 0, atas, map, moveAllPokemon,  spawn, cekGym, !.
+do(w) :- isSedangBertemuPokemon(Status), Status == 0, atas, printInfoLokasi, moveAllPokemon,  spawn, cekGym, !.
 do(w) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
-do(s) :- isSedangBertemuPokemon(Status), Status == 0, bawah, map, moveAllPokemon,  spawn, cekGym, !.
+do(s) :- isSedangBertemuPokemon(Status), Status == 0, bawah, printInfoLokasi, moveAllPokemon,  spawn, cekGym, !.
 do(s) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
-do(a) :- isSedangBertemuPokemon(Status), Status == 0, kiri,map,  moveAllPokemon, spawn, cekGym, !.
+do(a) :- isSedangBertemuPokemon(Status), Status == 0, kiri, printInfoLokasi, moveAllPokemon, spawn, cekGym, !.
 do(a) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'),cekGym, !.
-do(d) :- isSedangBertemuPokemon(Status), Status == 0, kanan, map,moveAllPokemon,  spawn, cekGym,!.
+do(d) :- isSedangBertemuPokemon(Status), Status == 0, kanan, printInfoLokasi, moveAllPokemon,  spawn, cekGym,!.
 do(d) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
 
 /* run dan battle hanya bisa dijalanin kalo player lagi ketemu pokemon */
@@ -89,7 +89,7 @@ do(battle) :-
 do(map) :- map,!.
 do(status) :- status,!.
 do(help) :- help,!.
-do(heal) :- !,heal.
+do(heal) :- heal,!.
 do(drop(X)) :- drop(X),!.
 
 /* pick(X) gak bisa dijalanin kalo player lagi gak battle */

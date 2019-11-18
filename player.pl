@@ -3,13 +3,14 @@
 :- dynamic(no_inventory/2).
 :- dynamic(curr_health/2).
 :- dynamic(isSkillUsed_Self/2).
+:- dynamic(isHeal/1).
 
 idAv([6]).
 
 /* Pemain */
 /* Kondisi awal pemain */
 inventory(snivy).
-inventory(pansage).
+inventory(pansear).
 inventory(panpour).
 inventory(emolga).
 inventory(pidove).
@@ -30,7 +31,7 @@ isSkillUsed_Self(5,0).
 isSkillUsed_Self(6,0).
 
 no_inventory(1,snivy).
-no_inventory(2,pansage).
+no_inventory(2,pansear).
 no_inventory(3,panpour).
 no_inventory(4,emolga).
 no_inventory(5,pidove).
@@ -187,23 +188,40 @@ pick(N) :-
     pokemon(_Y,X),!.
 
 /* gym center */
-/* healX(X) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
-healX([]) :- write('Your Pokemon are now fully healed'),nl, write('See you next time!'),nl,!.
+/* healX(L) : Meningkatkan health pokemon X menjadi maksimal seperti semula */
+isHeal(0).
+
+healX([]) :- 
+    retract(isHeal(_)),
+    asserta(isHeal(1)),
+    write('Your Pokemon are now fully healed'),nl, write('See you next time!'),nl,!.
 healX([X|T]) :-  
     no_inventory(M,X),
-    posisiPlayer(A,B),
-    gym(A,B),
     curr_health(M,H),
     health(X,HH),
     Z is HH,
     retract(curr_health(M,H)),
     asserta(curr_health(M,Z)),
-    healX(T),!.
+    healX(T).
 
 /* heal : Meningkatkan health semua pokemon menjadi maksimal seperti semula */
 heal :-
-    !,findall(X,inventory(X),ListHeal),
-    healX(ListHeal).
+    posisiPlayer(A,B),
+    gym(A,B),
+    isHeal(N), N==0,
+    findall(X,inventory(X),ListHeal),
+    healX(ListHeal),!.
+
+heal :-
+    posisiPlayer(A,B),
+    gym(A,B),
+    isHeal(N), N==1,
+    write('You can only heal your Pokemon once in a game'),nl,!.
+
+heal :-
+    posisiPlayer(A,B),
+    \+gym(A,B),
+    write('You can\'t do that!'),nl,!.
 
 % /* fail state */
 % /* fail : jumlah inventory = 0 */
