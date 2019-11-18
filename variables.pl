@@ -15,6 +15,7 @@
 :- dynamic(damage/2).
 :- dynamic(skill/3).
 :- dynamic(health/2).
+:- dynamic(gym/2).
 
 /* static variable*/
 /* Pemain */
@@ -29,11 +30,11 @@ gym(8,10).
 /* List pokemon */
 /* pokemon(ID,nama_pokemon) */
 pokemon(1,snivy).
-pokemon(101,servine).
+pokemon(21,servine).
 pokemon(2,tepig).
-pokemon(202,pignite).
+pokemon(22,pignite).
 pokemon(3,oshawott).
-pokemon(303,dewott).
+pokemon(23,dewott).
 pokemon(4,pansage).
 pokemon(5,pansear).
 pokemon(6,panpour).
@@ -41,17 +42,14 @@ pokemon(7,basculin).
 pokemon(8,darumaka).
 pokemon(9,maractus).
 pokemon(10,tympole).
-pokemon(11,cottonee).
-pokemon(12,litwick).
-pokemon(13,heatmor).
-pokemon(14,pidove).
-pokemon(15,woobat).
-pokemon(16,blitzle).
-pokemon(17,emolga).
-pokemon(18,throh).
-pokemon(19,sawk).
-pokemon(20,victini).
-pokemon(21,virizion).
+pokemon(11,pidove).
+pokemon(12,woobat).
+pokemon(13,blitzle).
+pokemon(14,emolga).
+pokemon(15,throh).
+pokemon(16,sawk).
+pokemon(17,victini).
+pokemon(18,virizion).
 
 /* level Pokemon */
 level(1,oshawott).
@@ -60,24 +58,21 @@ level(1,snivy).
 
 /* Posisi mula-mula pokemon */
 /* posisiPokemon(X,Y,Z) : X (ID Pokemon) berada di koordinat (Y,Z) */
-posisiPokemon(4,1,2).
-posisiPokemon(5,1,2).
-posisiPokemon(6,1,2).
-posisiPokemon(7,1,8).
-posisiPokemon(8,1,9).
-posisiPokemon(9,1,10).
-posisiPokemon(10,2,1).
-posisiPokemon(11,2,2).
-posisiPokemon(12,2,3).
-posisiPokemon(13,2,4).
-posisiPokemon(14,3,3).
-posisiPokemon(15,3,4).
-posisiPokemon(16,3,5).
-posisiPokemon(17,3,6).
-posisiPokemon(18,3,7).
-posisiPokemon(19,3,8).
-posisiPokemon(20,10,10).
-posisiPokemon(21,10,1).
+posisiPokemon(4,1,3).
+posisiPokemon(5,1,4).
+posisiPokemon(6,1,5).
+posisiPokemon(7,2,1).
+posisiPokemon(8,2,2).
+posisiPokemon(9,2,3).
+posisiPokemon(10,3,4).
+posisiPokemon(11,3,5).
+posisiPokemon(12,3,6).
+posisiPokemon(13,4,7).
+posisiPokemon(14,4,8).
+posisiPokemon(15,4,9).
+posisiPokemon(16,5,5).
+posisiPokemon(17,7,7).
+posisiPokemon(18,7,8).
 
 /* Type */
 /* type(X,Y) : X adalah type dari pokemon Y */
@@ -93,10 +88,6 @@ type(water,panpour).
 type(fire,darumaka).
 type(water,basculin).
 type(grass,maractus).
-type(water,tympole).
-type(grass,cottonee).
-type(fire,litwick).
-type(fire,heatmor).
 type(grass,virizion).
 type(fire,victini).
 type(flying,pidove).
@@ -132,10 +123,6 @@ health(panpour,100).
 health(darumaka,100).
 health(basculin,100).
 health(maractus,100).
-health(tympole,100).
-health(cottonee,100).
-health(litwick,100).
-health(heatmor,100).
 health(pidove,100).
 health(woobat,100).
 health(blitzle,100).
@@ -145,12 +132,25 @@ health(sawk,100).
 health(victini,150).
 health(virizion,150).
 
-
 /* Damage */
 /* damage(X,Y) : X memiliki damage sebesar Y */
 damage(victini,30).
 damage(virizion,30).
-damage(_,10).
+damage(snivy,10).
+damage(tepig,10).
+damage(oshawott,10).
+damage(pansage,10).
+damage(pansear,10).
+damage(panpour,10).
+damage(darumaka,10).
+damage(basculin,10).
+damage(maractus,10).
+damage(pidove,10).
+damage(woobat,10).
+damage(blitzle,10).
+damage(emolga,10).
+damage(throh,10).
+damage(sawk,10).
 damage(servine,20).
 damage(pignite,20).
 damage(dewott,20).
@@ -194,10 +194,6 @@ skill(panpour,waterGun,20).
 skill(darumaka,flameCharge,20).
 skill(basculin,aquaJet,20).
 skill(maractus,needleArm,20).
-skill(tympole,bubbleBeam,20).
-skill(cottonee,razorLeaf,20).
-skill(litwick,fireSpin,20).
-skill(heatmor,fireLash,20).
 skill(pidove,airCutter,20).
 skill(woobat,gust,20).
 skill(blitzle,shockWave,20).

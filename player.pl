@@ -186,6 +186,7 @@ heal :-
     posisiPlayer(A,B),
     gym(A,B),
     isHeal(N), N==0,
+    retract(gym(A,B)),
     findall(X,inventory(X),ListHeal),
     healX(ListHeal),!.
 
@@ -200,9 +201,10 @@ heal :-
     \+gym(A,B),
     write('You can\'t do that!'),nl,!.
 
-levelUp(P) :- \+starter(P),!.
+levelUp(P) :- \+starter(P),!,fail.
 levelUp(P) :-
     starter(P),
+    level(Lev,P), Lev < 3,
     retract(level(Lev,P)),
     NewLev is Lev+1,
     asserta(level(NewLev,P)),
@@ -230,14 +232,14 @@ evolve(N,P) :-
     write('.'),nl,
     write('.'),nl,
     write('.'),nl,
-    NewI is (I*100 + I),
+    NewI is (I*20 + I),
     pokemon(NewI,NewP),
     retract(no_inventory(N,_)),
     asserta(no_inventory(N,NewP)),
     health(NewP,NewH),
     retract(curr_health(N,_)),
     asserta(curr_health(N,NewH)),
-    write('It evolved into '), write(P),write('!'),nl,
+    write('It evolved into '), write(NewP),write('!'),nl,
     write('Health: '), write(NewH),nl,
     damage(NewP,D),
     write('Damage: '), write(D),nl, 

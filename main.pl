@@ -1,11 +1,10 @@
-:- include('variables.pl').
-:- include('Map_Eksploration.pl').
-:- include('Show_Status.pl').
-:- include('Show_Help.pl').
-:- include('player.pl').
-:- include('battle.pl').
-:- include('attack.pl').
-%:- include('saveload.pl').
+:- include('Variables.pl').
+:- include('Maps.pl').
+:- include('Status.pl').
+:- include('Help.pl').
+:- include('Player.pl').
+:- include('Battle.pl').
+:- include('Attack.pl').
 
 start :-
 	write('                                                   .//`                                           '),nl,
@@ -62,29 +61,30 @@ start :-
         end_condition.
 
 /* control w-a-s-d cuman bisa jalan kalo player lagi gak ketemu pokemon atau player telah menyelesaikan battle atau run */
-do(w) :- isSedangBertemuPokemon(Status), Status == 0, atas, printInfoLokasi, moveAllPokemon,  spawn, cekGym, !.
+do(w) :- isSedangBertemuPokemon(Status), Status == 0, atas, printInfoLokasi, !, moveAllPokemon, spawn, cekGym, !.
 do(w) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
-do(s) :- isSedangBertemuPokemon(Status), Status == 0, bawah, printInfoLokasi, moveAllPokemon,  spawn, cekGym, !.
+do(s) :- isSedangBertemuPokemon(Status), Status == 0, bawah, printInfoLokasi, !, moveAllPokemon, spawn, cekGym, !.
 do(s) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
-do(a) :- isSedangBertemuPokemon(Status), Status == 0, kiri, printInfoLokasi, moveAllPokemon, spawn, cekGym, !.
+do(a) :- isSedangBertemuPokemon(Status), Status == 0, kiri, printInfoLokasi, !, moveAllPokemon, spawn, cekGym, !.
 do(a) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'),cekGym, !.
-do(d) :- isSedangBertemuPokemon(Status), Status == 0, kanan, printInfoLokasi, moveAllPokemon,  spawn, cekGym,!.
+do(d) :- isSedangBertemuPokemon(Status), Status == 0, kanan, printInfoLokasi, !, moveAllPokemon, spawn, cekGym,!.
 do(d) :- isSedangBertemuPokemon(Status), Status == 1, print('You can\'t do that'), cekGym,!.
 
 /* run dan battle hanya bisa dijalanin kalo player lagi ketemu pokemon */
 do(run) :- 
-    isSedangBertemuPokemon(Status), Status is 1,
-    isBattle(StatusBattle), StatusBattle is 0,
+    isSedangBertemuPokemon(Status), Status == 1,
+    isBattle(StatusBattle), StatusBattle == 0,
     random(0,2,RandomValue), executeRun(RandomValue),!.
 do(run) :- 
-    isSedangBertemuPokemon(Status), Status is 0,
-    isBattle(StatusBattle), StatusBattle is 1,
+    isSedangBertemuPokemon(Status), Status == 0,
+    isBattle(StatusBattle), StatusBattle == 1,
     print('You can\'t do that'),!.
 do(battle) :- 
-    isSedangBertemuPokemon(Status), Status is 1,
-    pilihPokemon,!.
+    isSedangBertemuPokemon(Status), Status == 1,
+    pilihPokemon,
+	asserta(isEnemyAfterBattle(0)),!.
 do(battle) :- 
-    isSedangBertemuPokemon(Status), Status is 0,
+    isSedangBertemuPokemon(Status), Status == 0,
     print('You can\'t do that'),!.
 
 do(map) :- map,!.
@@ -95,7 +95,6 @@ do(drop(X)) :- drop(X),!.
 
 /* pick(X) gak bisa dijalanin kalo player lagi gak battle */
 do(pick(X)) :- 
-	asserta(isEnemyAfterBattle(0)),
     isBattle(Status), 
     Status == 1, 
     pick(X), 

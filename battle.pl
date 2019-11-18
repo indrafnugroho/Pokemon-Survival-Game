@@ -2,34 +2,33 @@
 
 :-dynamic(enemy_health/2).
 :-dynamic(isEnemyAfterBattle/1).
+:- dynamic(turnStatus/1).
 
 executeRun(RandomValue) :-
     RandomValue == 1,
     print('Got away freely'),nl,
     retract(isSedangBertemuPokemon(_)),
-    asserta(isSedangBertemuPokemon(0)),!.
+    asserta(isSedangBertemuPokemon(0)),
+    retractall(enemy_health(_,_)).
 
 executeRun(_) :-
     print('You can\'t run'),nl,    
-    pilihPokemon.
+    pilihPokemon,
+    asserta(isEnemyAfterBattle(0)).
 
 pilihPokemon :-
     retract(isBattle(_)),
     asserta(isBattle(1)),
     write('Pick your Pokemon from inventory! (press: pick(id)) '),nl.
 
-:- dynamic(turnStatus/1).
-
-turnStatus(1).
-
 /* turn pemain */
+turnStatus(1).
 turnPlayer(NumP,PickedPokemon,Enemy) :-
     turnStatus(X),
     X == 1,
     turnPemain(NumP,PickedPokemon,Enemy),
     retract(turnStatus(_)),
-    asserta(turnStatus(0)),
-    !.
+    asserta(turnStatus(0)),!.
 
 /* turn enemy */
 turnPlayer(NumP,PickedPokemon,Enemy) :-
@@ -37,14 +36,12 @@ turnPlayer(NumP,PickedPokemon,Enemy) :-
     X == 0,
     turnEnemy(NumP,PickedPokemon,Enemy),
     retract(turnStatus(_)),
-    asserta(turnStatus(1)),
-    !.      
+    asserta(turnStatus(1)),!.      
 
 turnPemain(NumP,PickedPokemon,Enemy) :-
     nl,print('-> '),
     read(X),
-    commandPlayer(X,NumP,PickedPokemon,Enemy),
-    nl,!.
+    commandPlayer(X,NumP,PickedPokemon,Enemy),nl,!.
 
 substractHealthPlayer(NumP,Damage,Health) :-
     Health1 is Health-Damage, Health1 >= 0,
@@ -58,8 +55,7 @@ turnEnemy(NumP,PickedPokemon,Enemy) :-
     modifier(Enemy,PickedPokemon,Damage),
     retract(curr_health(NumP,Health)),
     substractHealthPlayer(NumP,Damage,Health),
-    nl,print(Enemy),print(' dealt '),print(Damage),print(' to '), print(PickedPokemon),nl,
-    !.
+    nl,print(Enemy),print(' dealt '),print(Damage),print(' to '), print(PickedPokemon),nl,!.
 
 substractHealthEnemy(Enemy,Damage,Health) :-
     Health1 is Health-Damage, Health1 >= 0,
@@ -80,24 +76,19 @@ commandPlayer(specialAttack,NumP,PickedPokemon,Enemy) :-
     substractHealthEnemy(Enemy,Damage,Health),
     nl,print(PickedPokemon),print(' used '),print(NameSkill),print(' to '),print(Enemy),write('!'),
     retract(isSkillUsed_Self(NumP,_)),
-    asserta(isSkillUsed_Self(NumP,1)),
-    !.
+    asserta(isSkillUsed_Self(NumP,1)),!.
 
 commandPlayer(attack,_NumP,PickedPokemon,Enemy) :-
     modifier(PickedPokemon,Enemy,Damage),
     retract(enemy_health(Enemy,Health)),
     substractHealthEnemy(Enemy,Damage,Health),
-    nl,print(PickedPokemon),print(' dealt '),print(Damage),print(' to '), print(Enemy),
-    !.
+    nl,print(PickedPokemon),print(' dealt '),print(Damage),print(' to '), print(Enemy),!.
 
 /************************************************************************************************************/
 battle(NumP) :-
-    isEnemyAfterBattle(N), N==0,
+    % isEnemyAfterBattle(N), N==0,
     no_inventory(NumP,PickedPokemon),
     write('I choose you '), write(PickedPokemon), nl,
-    battleNow(Enemy),
-    health(Enemy,HEnemy0),
-    asserta(enemy_health(Enemy,HEnemy0)),
     /* battle akan akan terus bergirilir sampai kondisi StatusSelesai bernilai 1 */
     repeat,
         /* cetak data pokemon lawan */
@@ -118,40 +109,39 @@ battle(NumP) :-
         write('Type: '),write(TypePickedPokemon),nl,
 
         turnPlayer(NumP,PickedPokemon,Enemy),
-        end_battle(NumP,PickedPokemon, Enemy).
-
-battle(NumP) :-
-    isEnemyAfterBattle(N), N==1,
-    no_inventory(NumP,PickedPokemon),
-    write('I choose you '), write(PickedPokemon),write('!'), nl,
-    battleNow(Enemy),
-    /* battle akan akan terus bergirilir sampai kondisi StatusSelesai bernilai 1 */
-    repeat,
-        /* cetak data pokemon lawan */
-        battleNow(Enemy),
-        enemy_health(Enemy,EnemyHealth),
-        type(EnemyType,Enemy),
-
-        write(Enemy),nl,
-        write('Health: '),write(EnemyHealth),nl,
-        write('Type: '),write(EnemyType),nl,
-
-        /* cetak data pokemon kita */
-        curr_health(NumP,PickedPokemonHealth),
-        type(TypePickedPokemon,PickedPokemon),
-
-        nl,write(PickedPokemon),nl,
-        write('Health: '),write(PickedPokemonHealth),nl,
-        write('Type: '),write(TypePickedPokemon),nl,
-        showLevel(PickedPokemon),
-
-        turnPlayer(NumP,PickedPokemon,Enemy),
         end_battle(NumP,PickedPokemon,Enemy).
+
+% battle(NumP) :-
+    % isEnemyAfterBattle(N), N==1,
+    % no_inventory(NumP,PickedPokemon),
+    % write('I choose you '), write(PickedPokemon),write('!'), nl,
+    % /* battle akan akan terus bergirilir sampai kondisi StatusSelesai bernilai 1 */
+    % repeat,
+    %     /* cetak data pokemon lawan */
+    %     battleNow(Enemy),
+    %     enemy_health(Enemy,EnemyHealth),
+    %     type(EnemyType,Enemy),
+
+    %     write(Enemy),nl,
+    %     write('Health: '),write(EnemyHealth),nl,
+    %     write('Type: '),write(EnemyType),nl,
+
+    %     /* cetak data pokemon kita */
+    %     curr_health(NumP,PickedPokemonHealth),
+    %     type(TypePickedPokemon,PickedPokemon),
+
+    %     nl,write(PickedPokemon),nl,
+    %     write('Health: '),write(PickedPokemonHealth),nl,
+    %     write('Type: '),write(TypePickedPokemon),nl,
+    %     showLevel(PickedPokemon),
+
+    %     turnPlayer(NumP,PickedPokemon,Enemy),
+    %     end_battle(NumP,PickedPokemon,Enemy).
 /************************************************************************************************************/
 
 end_battle(NumP,PickedPokemon,_Enemy) :-
     curr_health(NumP,Health),
-    Health == 0,
+    Health =< 0,
     drop(NumP),
     jml_inventory(N), N>0,
     retract(turnStatus(_)),
@@ -165,7 +155,7 @@ end_battle(_NumP,_PickedPokemon,_Enemy) :-
 
 end_battle(NumP,PickedPokemon,Enemy) :-
     enemy_health(Enemy,Health),
-    Health == 0,
+    Health =< 0,
     retract(isSkillUsed_Self(NumP,_)),
     asserta(isSkillUsed_Self(NumP,0)),
     retract(isSedangBertemuPokemon(_)),
@@ -174,6 +164,7 @@ end_battle(NumP,PickedPokemon,Enemy) :-
     asserta(turnStatus(1)),
     retract(isBattle(_)),
     asserta(isBattle(0)),
+    retractall(enemy_health(_,_)),
     enemyFaint(NumP,PickedPokemon,Enemy),!.
 
 playerFaint(SelfPokemon) :-
@@ -193,7 +184,7 @@ enemyFaint(NumP,PickedPokemon,Enemy) :-
     \+legendary(Enemy),
     starter(PickedPokemon),
     write(Enemy), write(' is defeated. '),nl,nl,
-    levelUp(PickedPokemon),nl,
+    levelUp(PickedPokemon),
     evolve(NumP,PickedPokemon),nl,
     write('What will you do? [capture/move]'),nl,
     write('>> '),read(Input),
@@ -213,11 +204,16 @@ playerIsDead(pick(X)) :-
     pick(X), 
     battle(X),!.
 
-enemyIsDead(w,_) :- isSedangBertemuPokemon(Status), Status == 0, atas, moveAllPokemon, printInfoLokasi, spawn,  !.
-enemyIsDead(s,_) :- isSedangBertemuPokemon(Status), Status == 0, bawah,  moveAllPokemon, printInfoLokasi, spawn,  !.
-enemyIsDead(a,_) :- isSedangBertemuPokemon(Status), Status == 0, kiri, moveAllPokemon, printInfoLokasi, spawn,  !.
+enemyIsDead(w,_) :- isSedangBertemuPokemon(Status), Status == 0, atas, moveAllPokemon, printInfoLokasi, spawn, !.
+enemyIsDead(s,_) :- isSedangBertemuPokemon(Status), Status == 0, bawah, moveAllPokemon, printInfoLokasi, spawn, !.
+enemyIsDead(a,_) :- isSedangBertemuPokemon(Status), Status == 0, kiri, moveAllPokemon, printInfoLokasi, spawn, !.
 enemyIsDead(d,_) :- isSedangBertemuPokemon(Status), Status == 0, kanan, moveAllPokemon, printInfoLokasi, spawn, !.
-enemyIsDead(capture,Pokemon) :- jml_inventory(N),N<6,capture(Pokemon),write(Pokemon),write(' is now in your inventory!'),nl,!.
+
+enemyIsDead(capture,Pokemon) :- 
+    jml_inventory(N), N<6,
+    capture(Pokemon),
+    write(Pokemon), write(' is now in your inventory!'),nl,!.
+
 enemyIsDead(capture,Pokemon) :- 
     jml_inventory(N), N==6,
     write('Your inventory is full'),nl,
