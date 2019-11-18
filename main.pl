@@ -83,8 +83,7 @@ do(run) :-
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 1,
     pilihPokemon,
-	asserta(isEnemyAfterBattle(0)),
-    !.
+	!.
 do(battle) :- 
     isSedangBertemuPokemon(Status), Status is 0,
     print('You can\'t do that'),!.
@@ -97,6 +96,7 @@ do(drop(X)) :- drop(X),!.
 
 /* pick(X) gak bisa dijalanin kalo player lagi gak battle */
 do(pick(X)) :- 
+    asserta(isEnemyAfterBattle(0)),
     isBattle(Status), 
     Status is 1, 
     pick(X), 
